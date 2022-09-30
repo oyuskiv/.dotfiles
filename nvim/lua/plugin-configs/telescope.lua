@@ -4,8 +4,8 @@ if not ok then
     return
 end
 
-telescope.setup{
+telescope.setup {
     defaults = {
-      layout_config = { height = 0.90, width = 0.99 },
+        layout_config = { height = 0.90, width = 0.99 },
     },
-  }
+}

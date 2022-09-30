@@ -5,49 +5,49 @@ if not ok then
 end
 
 treesitter.setup({
-  highlight = {
-    enable = true,
-    disable = {},
-  },
-  indent = {
-    enable = true,
-    disable = {},
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-        init_selection = "gnn",
-        node_incremental = "grn",
-        scope_incremental = "grc",
-        node_decremental = "grm",
-      },
-  },
-  textobjects = {
-    enable = true
-  },
-  ensure_installed = {
-    "bash",
-    "toml",
-    "json",
-    "yaml",
-    "python",
-    "lua",
-    "c",
-    "cpp",
-    "cmake",
-    "make",
-    "dockerfile",
-    "go",
-    "gomod",
-    "vim",
-    "rust",
-    "bash",
-    "markdown",
-    "java",
-    "javascript",
-    "dart",
-    "hcl",
-  },
+    highlight = {
+        enable = true,
+        disable = {},
+    },
+    indent = {
+        enable = true,
+        disable = {},
+    },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "gnn",
+            node_incremental = "grn",
+            scope_incremental = "grc",
+            node_decremental = "grm",
+        },
+    },
+    textobjects = {
+        enable = true
+    },
+    ensure_installed = {
+        "bash",
+        "toml",
+        "json",
+        "yaml",
+        "python",
+        "lua",
+        "c",
+        "cpp",
+        "cmake",
+        "make",
+        "dockerfile",
+        "go",
+        "gomod",
+        "vim",
+        "rust",
+        "bash",
+        "markdown",
+        "java",
+        "javascript",
+        "dart",
+        "hcl",
+    },
 })
 
 -- Setup folding

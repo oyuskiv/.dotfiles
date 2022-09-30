@@ -1,8 +1,9 @@
 -- Packer bootstrap
 local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-    packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+        install_path })
 end
 
 -- Autoreload neovim if plugins.lua was chaged
@@ -22,15 +23,15 @@ end
 
 -- Plugin install
 packer.startup(function(use)
-    use { 'wbthomason/packer.nvim' }                                -- packer manage itself
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }    -- treesitter plugin
-    use { 'neovim/nvim-lspconfig' }                                 -- laguage server protocol
-    use { 'fatih/vim-go', run = ':GoInstallBinaries' }              -- golang support
-    use { 'nvim-telescope/telescope.nvim',                          -- fuzzy finder
-        requires = {'nvim-lua/plenary.nvim'} }
+    use { 'wbthomason/packer.nvim' } -- packer manage itself
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } -- treesitter plugin
+    use { 'neovim/nvim-lspconfig' } -- laguage server protocol
+    use { 'fatih/vim-go', run = ':GoInstallBinaries' } -- golang support
+    use { 'nvim-telescope/telescope.nvim', -- fuzzy finder
+        requires = { 'nvim-lua/plenary.nvim' } }
 
     -- color schemes
-    use { 'arcticicestudio/nord-vim' }                              -- nord theme
+    use { 'arcticicestudio/nord-vim' } -- nord theme
 
     -- Automatically set up plugings after bootstrup
     if packer_bootstrap then
