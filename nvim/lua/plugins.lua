@@ -33,6 +33,12 @@ packer.startup(function(use)
     -- color schemes
     use { 'arcticicestudio/nord-vim' } -- nord theme
 
+    -- status line
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
+
     -- Automatically set up plugings after bootstrup
     if packer_bootstrap then
         require('packer').sync()
@@ -43,3 +49,4 @@ end)
 require('plugin-configs.treesitter')
 require('plugin-configs.lsp')
 require('plugin-configs.telescope')
+require('plugin-configs.lualine')
