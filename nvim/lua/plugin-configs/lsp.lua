@@ -60,18 +60,24 @@ local lsp_flags = {
     debounce_text_changes = 150,
 }
 
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 -- Enable golang server
 lspconfig.gopls.setup {
+    capabilities = capabilities,
     on_attach = on_attach,
     flags = lsp_flags,
     single_file_support = false,
 }
 
 -- Enable golint server
-lspconfig.golangci_lint_ls.setup {}
+lspconfig.golangci_lint_ls.setup {
+    capabilities = capabilities,
+}
 
 -- Enable lua server
 lspconfig.sumneko_lua.setup {
+    capabilities = capabilities,
     on_attach = on_attach,
     flags = lsp_flags,
     settings = {
@@ -98,12 +104,14 @@ lspconfig.sumneko_lua.setup {
 
 -- Enable bash server
 lspconfig.bashls.setup {
+    capabilities = capabilities,
     on_attach = on_attach,
     flags = lsp_flags,
 }
 
 -- Enable python server
 lspconfig.pyright.setup {
+    capabilities = capabilities,
     on_attach = on_attach,
     flags = lsp_flags,
 }

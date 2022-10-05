@@ -23,21 +23,36 @@ end
 
 -- Plugin install
 packer.startup(function(use)
-    use { 'wbthomason/packer.nvim' } -- packer manage itself
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' } -- treesitter plugin
-    use { 'neovim/nvim-lspconfig' } -- laguage server protocol
-    use { 'fatih/vim-go', run = ':GoInstallBinaries' } -- golang support
-    use { 'nvim-telescope/telescope.nvim', -- fuzzy finder
-        requires = { 'nvim-lua/plenary.nvim' } }
+    -- packer manager itself
+    use { 'wbthomason/packer.nvim' }
+
+    -- treesitter plugin
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+
+    -- fuzzy finder
+    use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+
+    -- laguage server protocol
+    use { 'neovim/nvim-lspconfig' }
+
+    -- auto completition
+    use { 'hrsh7th/nvim-cmp' }
+    use { 'hrsh7th/cmp-nvim-lsp' }
+    use { 'hrsh7th/cmp-nvim-lua' }
+    use { 'hrsh7th/cmp-buffer' }
+    use { 'hrsh7th/cmp-path' }
+    use { 'onsails/lspkind.nvim' }
+    use { 'hrsh7th/cmp-nvim-lsp-signature-help' }
+
+    -- snipets support
+    use { 'L3MON4D3/LuaSnip' }
+    use { 'saadparwaiz1/cmp_luasnip' }
 
     -- color schemes
     use { 'arcticicestudio/nord-vim' } -- nord theme
 
     -- status line
-    use {
-        'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-    }
+    use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
 
     -- Automatically set up plugings after bootstrup
     if packer_bootstrap then
@@ -50,3 +65,4 @@ require('plugin-configs.treesitter')
 require('plugin-configs.lsp')
 require('plugin-configs.telescope')
 require('plugin-configs.lualine')
+require('plugin-configs.cmp')
