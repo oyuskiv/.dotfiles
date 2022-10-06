@@ -1,6 +1,8 @@
 vim.opt.expandtab = true -- expand tab by spaces
 vim.opt.tabstop = 4 -- number of spaces in tab
 vim.opt.number = true -- show line number
+vim.opt.splitbelow = true -- force all horizontal splits to go bellow
+vim.opt.splitright = true -- force all vertical splits got go right
 vim.opt.relativenumber = true -- show relative line number
 vim.opt.wrap = false -- not wrap lines
 vim.opt.cursorline = true -- highlight the current line
@@ -21,4 +23,4 @@ vim.cmd([[autocmd BufWritePre * :%s/\s\+$//e]]) -- remove all trailing whitespac
 vim.cmd([[
 let g:netrw_list_hide = '^\./$'
 let g:netrw_hide = 1
-]]) -- hide current directory in explorer
+]]) -- netrw settings
