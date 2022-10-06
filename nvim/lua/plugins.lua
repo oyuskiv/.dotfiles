@@ -52,7 +52,9 @@ packer.startup(function(use)
     use { 'arcticicestudio/nord-vim' } -- nord theme
 
     -- status line
-    use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
+    use { 'nvim-lualine/lualine.nvim', requires = 'kyazdani42/nvim-web-devicons' }
+    -- buffer line
+    use { 'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons' }
 
     -- Automatically set up plugings after bootstrup
     if packer_bootstrap then
@@ -66,3 +68,4 @@ require('plugin-configs.lsp')
 require('plugin-configs.telescope')
 require('plugin-configs.lualine')
 require('plugin-configs.cmp')
+require('plugin-configs.bufferline')
