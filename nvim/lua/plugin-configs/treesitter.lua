@@ -25,6 +25,7 @@ treesitter.setup({
     textobjects = {
         enable = true
     },
+    sync_install = true,
     ensure_installed = {
         "bash",
         "toml",
