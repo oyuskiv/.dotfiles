@@ -19,8 +19,27 @@ vim.opt.signcolumn = "yes" -- always show sign column
 vim.opt.termguicolors = true -- enable gui colors
 vim.opt.laststatus = 3 -- enable global status line
 vim.cmd('filetype plugin indent on') -- enable filetype plugin and indentation
-vim.cmd([[autocmd BufWritePre * :%s/\s\+$//e]]) -- remove all trailing whitespace
+
+-- netrw settings
 vim.cmd([[
 let g:netrw_list_hide = '^\./$'
 let g:netrw_hide = 1
-]]) -- netrw settings
+]])
+
+-- auto format file during save
+local group_autoformat = vim.api.nvim_create_augroup("auto format", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePre", {
+    callback = function()
+        local bufnr = vim.api.nvim_win_get_buf(0)
+        local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+        for _, c in ipairs(clients) do
+            if c.server_capabilities.documentFormattingProvider then
+                vim.lsp.buf.format { async = false }
+                return
+            end
+        end
+        vim.api.nvim_command("%s/\\s\\+$//e")
+    end,
+    pattern = '<buffer>',
+    group = group_autoformat
+})

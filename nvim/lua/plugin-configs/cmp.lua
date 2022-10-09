@@ -29,7 +29,7 @@ cmp.setup {
         ['c-space>'] = cmp.mapping.complete(),
     },
     sources = {
-        { name = 'nvim_lua' },
+        { name = 'nvim_lua', max_item_count = 10 },
         { name = 'nvim_lsp', max_item_count = 10 },
         { name = 'path' },
         { name = 'luasnip' },
