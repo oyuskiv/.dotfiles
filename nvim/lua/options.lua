@@ -21,10 +21,9 @@ vim.opt.laststatus = 3 -- enable global status line
 vim.cmd('filetype plugin indent on') -- enable filetype plugin and indentation
 
 -- netrw settings
-vim.cmd([[
-let g:netrw_list_hide = '^\./$'
-let g:netrw_hide = 1
-]])
+vim.g.netrw_hide = 1
+vim.g.netrw_list_hide = '^\\./$'
+vim.g.netrw_banner = 0
 
 -- auto format file during save
 local group_autoformat = vim.api.nvim_create_augroup("auto format", { clear = true })
