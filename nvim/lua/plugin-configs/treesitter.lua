@@ -48,6 +48,7 @@ treesitter.setup({
         "javascript",
         "dart",
         "hcl",
+        "http",
     },
 })
 
