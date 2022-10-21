@@ -24,8 +24,6 @@ local on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -42,7 +40,7 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set('n', '<space>f',function() vim.lsp.buf.format { async = true } end, bufopts)
+    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
     vim.keymap.set('n', 'td',
         function()
             if diagnostic_state then
