@@ -14,9 +14,9 @@ vim.opt.autowrite = true -- auto write buffer
 vim.opt.autowriteall = true -- auto write buffer
 vim.opt.scrolloff = 10 -- minimal number of lines to keep above and below the cursor
 vim.opt.updatetime = 1000 -- timeout to write swap file on disk
-vim.opt.mouse = "a" -- enable mouse support
+vim.opt.mouse = 'a' -- enable mouse support
 vim.opt.pumheight = 10 -- popup menu height
-vim.opt.signcolumn = "yes" -- always show sign column
+vim.opt.signcolumn = 'yes' -- always show sign column
 vim.opt.termguicolors = true -- enable gui colors
 vim.opt.laststatus = 3 -- enable global status line
 vim.cmd('filetype plugin indent on') -- enable filetype plugin and indentation
@@ -27,8 +27,8 @@ vim.g.netrw_list_hide = '^\\./$'
 vim.g.netrw_banner = 0
 
 -- auto format file during save
-local group_autoformat = vim.api.nvim_create_augroup("auto format", { clear = true })
-vim.api.nvim_create_autocmd("BufWritePre", {
+local group_autoformat = vim.api.nvim_create_augroup('auto format', { clear = true })
+vim.api.nvim_create_autocmd('BufWritePre', {
     callback = function()
         local bufnr = vim.api.nvim_win_get_buf(0)
         local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
@@ -38,8 +38,8 @@ vim.api.nvim_create_autocmd("BufWritePre", {
                 return
             end
         end
-        vim.api.nvim_command("%s/\\s\\+$//e")
+        vim.api.nvim_command('%s/\\s\\+$//e')
     end,
-    pattern = '<buffer>',
+    pattern = '*',
     group = group_autoformat
 })
