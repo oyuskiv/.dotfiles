@@ -17,6 +17,22 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
+-- Set diagnostic config
+vim.diagnostic.config({
+    virtual_text = false,
+    underline = true,
+    severity_sort = true,
+    update_in_insert = true,
+    float = {
+        focusable = false,
+        style = 'minimal',
+        border = 'rounded',
+        source = 'always',
+        header = '',
+        prefix = '',
+    },
+})
+
 local diagnostic_state = true
 
 -- Attach function of lsp servers
@@ -71,6 +87,8 @@ lspconfig.gopls.setup {
 -- Enable golint server
 lspconfig.golangci_lint_ls.setup {
     capabilities = capabilities,
+    on_attach = on_attach,
+    flags = lsp_flags,
 }
 
 -- Enable lua server
@@ -109,6 +127,13 @@ lspconfig.bashls.setup {
 
 -- Enable python server
 lspconfig.pyright.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    flags = lsp_flags,
+}
+
+-- Enable terraform server
+lspconfig.terraformls.setup {
     capabilities = capabilities,
     on_attach = on_attach,
     flags = lsp_flags,

@@ -19,18 +19,18 @@ lspkind.init()
 
 cmp.setup {
     mapping = {
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-e>'] = cmp.mapping.close(),
         ['<C-y>'] = cmp.mapping.confirm {
             behavior = cmp.ConfirmBehavior.Insert,
             select = true,
         },
-        ['c-space>'] = cmp.mapping.complete(),
+        ['<C-space>'] = cmp.mapping.complete(),
     },
     sources = {
-        { name = 'nvim_lua', max_item_count = 10 },
-        { name = 'nvim_lsp', max_item_count = 10 },
+        { name = 'nvim_lua' },
+        { name = 'nvim_lsp' },
         { name = 'path' },
         { name = 'luasnip' },
         { name = 'buffer', max_item_count = 4, keyword_length = 3 },
