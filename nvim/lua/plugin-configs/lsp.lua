@@ -138,3 +138,33 @@ lspconfig.terraformls.setup {
     on_attach = on_attach,
     flags = lsp_flags,
 }
+
+-- Enable groovy server
+lspconfig.groovyls.setup {
+    cmd = { 'groovy-language-server' }, -- symlink on "java -jar groovy-language-server-all.jar"
+    capabilities = capabilities,
+    on_attach = on_attach,
+    flags = lsp_flags,
+}
+
+-- Enable docker server
+lspconfig.dockerls.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    flags = lsp_flags,
+}
+
+-- Enable yaml server
+lspconfig.yamlls.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    flags = lsp_flags,
+    settings = {
+        yaml = {
+            schemas = {
+                ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.1-standalone-strict/all.json"] = "/*k8s*.yaml",
+                ["http://json.schemastore.org/kustomization"] = "kustomization.yaml",
+            }
+        }
+    }
+}
