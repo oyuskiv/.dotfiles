@@ -11,3 +11,9 @@ bufferline.setup {
         separator_style = 'thin'
     }
 }
+
+
+vim.keymap.set('n', '<space>as', bufferline.pick_buffer, {})
+vim.keymap.set('n', '<space>ac', bufferline.close_with_pick, {})
+vim.keymap.set('n', '<space>an', function() bufferline.cycle(1) end, {})
+vim.keymap.set('n', '<space>ap', function() bufferline.cycle(-1) end, {})
