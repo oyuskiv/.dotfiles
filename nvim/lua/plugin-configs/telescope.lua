@@ -35,4 +35,8 @@ vim.keymap.set('n', '<space>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<space>fs', builtin.grep_string, {})
 vim.keymap.set('n', '<space>fc', builtin.current_buffer_fuzzy_find, {})
 vim.keymap.set('n', '<space>fb', builtin.buffers, {})
-vim.keymap.set('n', '<space>fd', builtin.lsp_document_symbols, {})
+vim.keymap.set('n', '<space>fd',
+    function()
+        builtin.lsp_document_symbols({ show_line = true })
+    end,
+    {})
