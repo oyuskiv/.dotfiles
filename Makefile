@@ -1,5 +1,5 @@
 .PHONY: all
-all: nvim tmux
+all: nvim tmux kitty
 
 .PHONY: nvim
 nvim:
@@ -16,3 +16,11 @@ tmux:
 	@echo "tmux: copying new config ..."
 	@cp -r tmux ~/.config/tmux
 	@echo "tmux: done"
+
+.PHONY: kitty
+kitty:
+	@echo "kitty: removing old config ..."
+	@rm -rf ~/.config/kitty
+	@echo "kitty: copying new config ..."
+	@cp -r kitty ~/.config/kitty
+	@echo "kitty: done"
