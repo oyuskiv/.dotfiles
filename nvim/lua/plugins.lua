@@ -63,6 +63,9 @@ packer.startup(function(use)
     -- buffer line
     use { 'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons' }
 
+    -- commenting
+    use { 'numToStr/Comment.nvim' }
+
     -- Automatically set up plugings after bootstrup
     if packer_bootstrap then
         require('packer').sync()
@@ -76,3 +79,4 @@ require('plugin-configs.telescope')
 require('plugin-configs.lualine')
 require('plugin-configs.cmp')
 require('plugin-configs.bufferline')
+require('plugin-configs.comment')
