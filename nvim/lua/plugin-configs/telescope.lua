@@ -30,13 +30,13 @@ vim.keymap.set('n', '<space>ff',
     function()
         builtin.find_files({ no_ignore = true, follow = true })
     end,
-    {})
-vim.keymap.set('n', '<space>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<space>fs', builtin.grep_string, {})
-vim.keymap.set('n', '<space>fc', builtin.current_buffer_fuzzy_find, {})
-vim.keymap.set('n', '<space>fb', builtin.buffers, {})
+    { desc = "Telescope: find files" })
+vim.keymap.set('n', '<space>fg', builtin.live_grep, { desc = "Telescope: live grep" })
+vim.keymap.set('n', '<space>fs', builtin.grep_string, { desc = "Telescope: grep string" })
+vim.keymap.set('n', '<space>fc', builtin.current_buffer_fuzzy_find, { desc = "Telescope: buffer fuzzy find" })
+vim.keymap.set('n', '<space>fb', builtin.buffers, { desc = "Telescope: select buffer" })
 vim.keymap.set('n', '<space>fd',
     function()
         builtin.lsp_document_symbols({ show_line = true })
     end,
-    {})
+    { desc = "Telescope: document symbols" })
