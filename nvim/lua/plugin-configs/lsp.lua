@@ -12,10 +12,14 @@ vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSig
 
 -- Set keymap for diagnostic
 local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float,
+    vim.tbl_deep_extend("error", opts, { desc = "Diagnostic: open diagnostic window" }))
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev,
+    vim.tbl_deep_extend("error", opts, { desc = "Diagnostic: go to previous message" }))
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next,
+    vim.tbl_deep_extend("error", opts, { desc = "Diagnostic: go to next message" }))
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist,
+    vim.tbl_deep_extend("error", opts, { desc = "Diagnostic: send messages to local list" }))
 
 -- Set diagnostic config
 vim.diagnostic.config({
@@ -40,23 +44,35 @@ local on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration,
+        vim.tbl_deep_extend("error", bufopts, { desc = "LSP: go to declaration" }))
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition,
+        vim.tbl_deep_extend("error", bufopts, { desc = "LSP: go to definition" }))
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover,
+        vim.tbl_deep_extend("error", bufopts, { desc = "LSP: show documentation on hover" }))
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation,
+        vim.tbl_deep_extend("error", bufopts, { desc = "LSP: go to implementation" }))
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help,
+        vim.tbl_deep_extend("error", bufopts, { desc = "LSP: show signature help" }))
+    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder,
+        vim.tbl_deep_extend("error", bufopts, { desc = "LSP: add directory to workspace" }))
+    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder,
+        vim.tbl_deep_extend("error", bufopts, { desc = "LSP: remove directory from workspace" }))
     vim.keymap.set('n', '<space>wl',
         function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
         end,
-        bufopts)
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+        vim.tbl_deep_extend("error", bufopts, { desc = "LSP: list workspace directories" }))
+    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition,
+        vim.tbl_deep_extend("error", bufopts, { desc = "LSP: go to type definition" }))
+    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename,
+        vim.tbl_deep_extend("error", bufopts, { desc = "LSP: refactor rename" }))
+    vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action,
+        vim.tbl_deep_extend("error", bufopts, { desc = "LSP: code action" }))
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references,
+        vim.tbl_deep_extend("error", bufopts, { desc = "LSP: show references" }))
+    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end,
+        vim.tbl_deep_extend("error", bufopts, { desc = "LSP: format buffer" }))
     vim.keymap.set('n', 'td',
         function()
             if diagnostic_state then
@@ -67,7 +83,7 @@ local on_attach = function(_, bufnr)
                 diagnostic_state = true
             end
         end,
-        bufopts)
+        vim.tbl_deep_extend("error", bufopts, { desc = "Toogle diagnostic" }))
 end
 
 local lsp_flags = {
