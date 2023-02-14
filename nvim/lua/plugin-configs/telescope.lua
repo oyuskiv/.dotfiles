@@ -40,3 +40,13 @@ vim.keymap.set('n', '<space>fd',
         builtin.lsp_document_symbols({ show_line = true })
     end,
     { desc = "Telescope: document symbols" })
+
+-- Fix folding for opened files from Telescope
+vim.api.nvim_create_autocmd('BufRead', {
+    callback = function()
+        vim.api.nvim_create_autocmd('BufWinEnter', {
+            once = true,
+            command = 'normal! zx'
+        })
+    end
+})
