@@ -28,49 +28,54 @@ if not ok then
 end
 
 -- Plugin install
-packer.startup(function(use)
-    -- packer manager itself
-    use { 'wbthomason/packer.nvim' }
+packer.startup({
+    function(use)
+        -- packer manager itself
+        use { 'wbthomason/packer.nvim' }
 
-    -- treesitter plugin
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+        -- treesitter plugin
+        use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
-    -- fuzzy finder
-    use { 'nvim-telescope/telescope.nvim', tag = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
-    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+        -- fuzzy finder
+        use { 'nvim-telescope/telescope.nvim', tag = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
+        use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
-    -- laguage server protocol
-    use { 'neovim/nvim-lspconfig' }
+        -- laguage server protocol
+        use { 'neovim/nvim-lspconfig' }
 
-    -- auto completition
-    use { 'hrsh7th/nvim-cmp' }
-    use { 'hrsh7th/cmp-nvim-lsp' }
-    use { 'hrsh7th/cmp-nvim-lua' }
-    use { 'hrsh7th/cmp-buffer' }
-    use { 'hrsh7th/cmp-path' }
-    use { 'onsails/lspkind.nvim' }
-    use { 'hrsh7th/cmp-nvim-lsp-signature-help' }
+        -- auto completition
+        use { 'hrsh7th/nvim-cmp' }
+        use { 'hrsh7th/cmp-nvim-lsp' }
+        use { 'hrsh7th/cmp-nvim-lua' }
+        use { 'hrsh7th/cmp-buffer' }
+        use { 'hrsh7th/cmp-path' }
+        use { 'onsails/lspkind.nvim' }
+        use { 'hrsh7th/cmp-nvim-lsp-signature-help' }
 
-    -- snipets support
-    use { 'L3MON4D3/LuaSnip' }
-    use { 'saadparwaiz1/cmp_luasnip' }
+        -- snipets support
+        use { 'L3MON4D3/LuaSnip' }
+        use { 'saadparwaiz1/cmp_luasnip' }
 
-    -- color schemes
-    use { 'arcticicestudio/nord-vim' } -- nord theme
+        -- color schemes
+        use { 'arcticicestudio/nord-vim' } -- nord theme
 
-    -- status line
-    use { 'nvim-lualine/lualine.nvim', requires = 'kyazdani42/nvim-web-devicons' }
-    -- buffer line
-    use { 'akinsho/bufferline.nvim', tag = "v3.*", requires = 'kyazdani42/nvim-web-devicons' }
+        -- status line
+        use { 'nvim-lualine/lualine.nvim', requires = 'kyazdani42/nvim-web-devicons' }
+        -- buffer line
+        use { 'akinsho/bufferline.nvim', tag = "v3.*", requires = 'kyazdani42/nvim-web-devicons' }
 
-    -- commenting
-    use { 'numToStr/Comment.nvim' }
+        -- commenting
+        use { 'numToStr/Comment.nvim' }
 
-    -- Automatically set up plugings after bootstrup
-    if packer_bootstrap then
-        require('packer').sync()
-    end
-end)
+        -- Automatically set up plugings after bootstrup
+        if packer_bootstrap then
+            require('packer').sync()
+        end
+    end,
+    config = {
+        snapshot = vim.fn.stdpath('config') .. '/lua/snapshot'
+    }
+})
 
 -- Plugin configs
 require('plugin-configs.treesitter')
