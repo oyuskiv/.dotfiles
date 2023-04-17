@@ -1,25 +1,13 @@
-###############################################################################
-# History setup
-###############################################################################
-export HISTFILE="$ZDOTDIR/.zhistory"
-export HISTSIZE=10000
-export SAVEHIST=10000
+zle_highlight=('paste:none')
+autoload -U colors && colors
 
-setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
-setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
-setopt SHARE_HISTORY             # Share history between all sessions.
-setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
-setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
-setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
-setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
-setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
-setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
-setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
-setopt APPEND_HISTORY            # Append to history file
-setopt HIST_NO_STORE             # Don't store history commands
+source $ZDOTDIR/zsh_functions
 
-###############################################################################
-# Autocompletion setup
-###############################################################################
-setopt globdots                  # Complete dot dirs
-autoload -U compinit; compinit   # Enable completion
+zsh_add_plugin zsh-users/zsh-syntax-highlighting 0.7.1
+zsh_add_file zsh_comp
+zsh_add_file zsh_history
+zsh_add_file zsh_prompt
+zsh_add_file zsh_alias
+zsh_add_dir $XDG_CONFIG_HOME/shell-env
+
+eval "$(direnv hook zsh)"

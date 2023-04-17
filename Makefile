@@ -31,6 +31,6 @@ zsh:
 	@rm -f ~/.zshenv
 	@rm -rf ~/.config/zsh
 	@echo "zsh: copying new config ..."
-	@cp zsh/.zshenv ~/.zshenv
-	@cp -r zsh/zsh ~/.config/zsh
+	@cp -r zsh ~/.config/zsh
+	@ln -s ~/.config/zsh/.zshenv ~/.zshenv
 	@echo "zsh: done"
