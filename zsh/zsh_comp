@@ -1,0 +1,6 @@
+unsetopt BEEP                            # Disable beeping
+setopt GLOB_DOTS                         # Include hidden files/dirs
+autoload -U compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+compinit
