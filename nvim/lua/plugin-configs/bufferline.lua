@@ -21,8 +21,10 @@ vim.keymap.set('n', '<space>ad',
         local active = vim.api.nvim_get_current_buf()
         local buffers = vim.api.nvim_list_bufs()
         for _, b in ipairs(buffers) do
-            if active ~= b then
-                vim.cmd("wa|bd" .. b)
+            if vim.fn.buflisted(b) then
+                if active ~= b then
+                    vim.cmd("wa|bd " .. b)
+                end
             end
         end
         vim.cmd("redrawtabline")
