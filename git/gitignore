@@ -1,0 +1,5 @@
+*.orig
+gitign.*
+tmp
+tmp/
+.envrc
