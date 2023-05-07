@@ -11,3 +11,4 @@ zsh_add_file zsh_alias
 zsh_add_dir $XDG_CONFIG_HOME/shell-env
 
 eval "$(direnv hook zsh)"
+eval "$(dircolors $ZDOTDIR/dir_colors)"
