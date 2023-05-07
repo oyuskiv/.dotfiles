@@ -1,5 +1,5 @@
 .PHONY: all
-all: nvim tmux kitty zsh bat
+all: nvim tmux kitty zsh git bat
 
 .PHONY: nvim
 nvim:
@@ -43,3 +43,10 @@ bat:
 	@cp -r bat ~/.config/bat
 	@echo "bat: done"
 
+.PHONY: git
+git:
+	@echo "git: removing old config ..."
+	@rm -rf ~/.config/git/git.config
+	@echo "git: copying new config ..."
+	@cp -r git ~/.config/git/git.config
+	@echo "git: done"
