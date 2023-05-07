@@ -66,3 +66,8 @@ tmk() {
         echo $i | cut -d ':' -f1 | xargs tmux kill-session -t
     done
 }
+
+####################################################################################
+# fzf
+####################################################################################
+alias ffo='fzf --print0 --reverse --preview "bat --color=always {}" --bind "ctrl-j:preview-down,ctrl-k:preview-up" | xargs -0 -r nvim'
