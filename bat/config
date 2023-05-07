@@ -1,0 +1,4 @@
+# nord theme
+--theme="Nord"
+# show only numbers without any decorations
+--style="numbers,header,changes,rule,snip"

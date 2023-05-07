@@ -1,5 +1,5 @@
 .PHONY: all
-all: nvim tmux kitty zsh
+all: nvim tmux kitty zsh bat
 
 .PHONY: nvim
 nvim:
@@ -34,3 +34,12 @@ zsh:
 	@cp -r zsh ~/.config/zsh
 	@ln -s ~/.config/zsh/.zshenv ~/.zshenv
 	@echo "zsh: done"
+
+.PHONY: bat
+bat:
+	@echo "bat: removing old config ..."
+	@rm -rf ~/.config/bat
+	@echo "bat: copying new config ..."
+	@cp -r bat ~/.config/bat
+	@echo "bat: done"
+
