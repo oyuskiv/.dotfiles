@@ -2,9 +2,9 @@
     lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%ai%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
     find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
     show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
-    co = !git branch | fzf --height=20% --reverse --info=inline | tr -d \"[:space:]*\" | xargs git checkout
-    bd = !git branch | fzf --height=20% --reverse --info=inline --multi | xargs git branch -D
-    cob = !git branch -r | cut -d '/' -f2- | fzf | xargs -i git checkout -b {} origin/{}
+    co = !git branch | fzf --height=20% --reverse --info=inline | tr -d \"[:space:]*\" | xargs -r git checkout
+    bd = !git branch | fzf --height=20% --reverse --info=inline --multi | xargs -r git branch -D
+    cob = !git branch -r | cut -d '/' -f2- | fzf | xargs -r -i git checkout -b {} origin/{}
 [core]
     editor = nvim
     symlinks = true
