@@ -51,6 +51,7 @@ packer.startup({
         use { 'hrsh7th/cmp-path' }
         use { 'onsails/lspkind.nvim' }
         use { 'hrsh7th/cmp-nvim-lsp-signature-help' }
+        use { 'williamboman/mason.nvim', run = ':MasonUpdate' }
 
         -- snipets support
         use { 'L3MON4D3/LuaSnip' }
@@ -85,3 +86,4 @@ require('plugin-configs.lualine')
 require('plugin-configs.cmp')
 require('plugin-configs.bufferline')
 require('plugin-configs.comment')
+require('plugin-configs.mason')
