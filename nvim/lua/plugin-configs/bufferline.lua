@@ -39,4 +39,13 @@ vim.keymap.set('n', '<space>ad',
         vim.cmd('redraw')
     end,
     { desc = 'Buffer: close other buffers' })
-vim.keymap.set('n', '<space>aq', function() vim.cmd('cclose') end, { desc = 'Buffer: close quick list' })
+vim.keymap.set('n', '<space>aq',
+    function()
+        local buffers = vim.api.nvim_list_bufs()
+        for _, b in ipairs(buffers) do
+            if vim.bo[b].filetype == 'qf' then
+                vim.api.nvim_buf_delete(b, { force = true })
+            end
+        end
+    end,
+    { desc = 'Buffer: close quick list' })
