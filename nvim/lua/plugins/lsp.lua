@@ -11,13 +11,13 @@ return {
 
             -- Set keymap for diagnostic
             local opts = { noremap = true, silent = true }
-            vim.keymap.set('n', '<space>e', vim.diagnostic.open_float,
+            vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float,
                 vim.tbl_deep_extend("error", opts, { desc = "Diagnostic: open diagnostic window" }))
             vim.keymap.set('n', '[d', vim.diagnostic.goto_prev,
                 vim.tbl_deep_extend("error", opts, { desc = "Diagnostic: go to previous message" }))
             vim.keymap.set('n', ']d', vim.diagnostic.goto_next,
                 vim.tbl_deep_extend("error", opts, { desc = "Diagnostic: go to next message" }))
-            vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist,
+            vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist,
                 vim.tbl_deep_extend("error", opts, { desc = "Diagnostic: send messages to local list" }))
 
             -- Set diagnostic config
@@ -53,27 +53,28 @@ return {
                     vim.tbl_deep_extend("error", bufopts, { desc = "LSP: go to implementation" }))
                 vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help,
                     vim.tbl_deep_extend("error", bufopts, { desc = "LSP: show signature help" }))
-                vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder,
+                vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder,
                     vim.tbl_deep_extend("error", bufopts, { desc = "LSP: add directory to workspace" }))
-                vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder,
+                vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder,
                     vim.tbl_deep_extend("error", bufopts, { desc = "LSP: remove directory from workspace" }))
-                vim.keymap.set('n', '<space>wl',
+                vim.keymap.set('n', '<leader>wl',
                     function()
                         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                     end,
                     vim.tbl_deep_extend("error", bufopts, { desc = "LSP: list workspace directories" }))
-                vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition,
+                vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition,
                     vim.tbl_deep_extend("error", bufopts, { desc = "LSP: go to type definition" }))
-                vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename,
+                vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename,
                     vim.tbl_deep_extend("error", bufopts, { desc = "LSP: refactor rename" }))
-                vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action,
+                vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action,
                     vim.tbl_deep_extend("error", bufopts, { desc = "LSP: code action" }))
                 vim.keymap.set('n', 'gr', vim.lsp.buf.references,
                     vim.tbl_deep_extend("error", bufopts, { desc = "LSP: show references" }))
-                vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end,
+                vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end,
                     vim.tbl_deep_extend("error", bufopts, { desc = "LSP: format buffer" }))
-                vim.keymap.set('n', 'td',
+                vim.keymap.set('n', '<leader>dt',
                     function()
+                        vim.diagnostic.reset()
                         if diagnostic_state then
                             vim.diagnostic.disable()
                             diagnostic_state = false
