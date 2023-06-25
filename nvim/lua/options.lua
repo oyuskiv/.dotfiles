@@ -26,6 +26,8 @@ vim.g.netrw_hide = 1
 vim.g.netrw_list_hide = '^\\./$'
 vim.g.netrw_banner = 0
 
+vim.g.mapleader = ' '
+
 -- auto format file during save
 local group_autoformat = vim.api.nvim_create_augroup('auto format', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePre', {
