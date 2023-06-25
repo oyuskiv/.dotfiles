@@ -2,6 +2,7 @@ return {
     {
         'neovim/nvim-lspconfig',
         lazy = false,
+        dependencies = { 'SmiteshP/nvim-navic' },
         config = function()
             -- Set diagnostic sing symbols
             vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError', numhl = '' })
@@ -37,9 +38,13 @@ return {
             })
 
             local diagnostic_state = true
-
+            local navic = require("nvim-navic")
             -- Attach function of lsp servers
-            local on_attach = function(_, bufnr)
+            local on_attach = function(client, bufnr)
+                if client.server_capabilities.documentSymbolProvider then
+                    navic.attach(client, bufnr)
+                end
+
                 vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
                 local bufopts = { noremap = true, silent = true, buffer = bufnr }
@@ -96,7 +101,10 @@ return {
             -- Enable golang server
             lspconfig.gopls.setup {
                 capabilities = capabilities,
-                on_attach = on_attach,
+                on_attach = function(client, bufnr)
+                    navic.attach(client, bufnr)
+                    on_attach(client, bufnr)
+                end,
                 flags = lsp_flags,
                 single_file_support = false,
             }
