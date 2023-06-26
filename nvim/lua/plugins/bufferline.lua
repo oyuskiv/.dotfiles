@@ -26,11 +26,11 @@ return {
                 }
             }
 
-            vim.keymap.set('n', '<space>as', bufferline.pick_buffer, { desc = 'Buffer: pick buffer' })
-            vim.keymap.set('n', '<space>ac', bufferline.close_with_pick, { desc = 'Buffer: close picked beffer' })
-            vim.keymap.set('n', '<space>an', function() bufferline.cycle(1) end, { desc = 'Buffer: next buffer' })
-            vim.keymap.set('n', '<space>ap', function() bufferline.cycle(-1) end, { desc = 'Buffer: previous beffer' })
-            vim.keymap.set('n', '<space>ad',
+            vim.keymap.set('n', '<leader>as', bufferline.pick, { desc = 'Buffer: pick buffer' })
+            vim.keymap.set('n', '<leader>ac', bufferline.close_with_pick, { desc = 'Buffer: close picked beffer' })
+            vim.keymap.set('n', '<leader>an', function() bufferline.cycle(1) end, { desc = 'Buffer: next buffer' })
+            vim.keymap.set('n', '<leader>ap', function() bufferline.cycle(-1) end, { desc = 'Buffer: previous beffer' })
+            vim.keymap.set('n', '<leader>ad',
                 function()
                     vim.cmd('wa')
                     local active = vim.api.nvim_get_current_buf()
@@ -46,7 +46,7 @@ return {
                     vim.cmd('redraw')
                 end,
                 { desc = 'Buffer: close other buffers' })
-            vim.keymap.set('n', '<space>aq',
+            vim.keymap.set('n', '<leader>aq',
                 function()
                     local buffers = vim.api.nvim_list_bufs()
                     for _, b in ipairs(buffers) do

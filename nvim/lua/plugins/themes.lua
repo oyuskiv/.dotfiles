@@ -9,6 +9,7 @@ return {
             require('nord').set()
 
             vim.cmd('colorscheme nord')
+            -- disable highlight for telescope matching
             vim.cmd('highlight TelescopeMatching gui=NONE guifg=NONE guibg=NONE')
         end
     },

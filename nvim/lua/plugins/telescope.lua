@@ -35,16 +35,17 @@ return {
             require('telescope').load_extension('fzf')
 
             local builtin = require('telescope.builtin')
-            vim.keymap.set('n', '<space>ff',
+            vim.keymap.set('n', '<leader>ff',
                 function()
                     builtin.find_files({ no_ignore = true, follow = true })
                 end,
                 { desc = "Telescope: find files" })
-            vim.keymap.set('n', '<space>fg', builtin.live_grep, { desc = "Telescope: live grep" })
-            vim.keymap.set('n', '<space>fs', builtin.grep_string, { desc = "Telescope: grep string" })
-            vim.keymap.set('n', '<space>fc', builtin.current_buffer_fuzzy_find, { desc = "Telescope: buffer fuzzy find" })
-            vim.keymap.set('n', '<space>fb', builtin.buffers, { desc = "Telescope: select buffer" })
-            vim.keymap.set('n', '<space>fd',
+            vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = "Telescope: live grep" })
+            vim.keymap.set('n', '<leader>fs', builtin.grep_string, { desc = "Telescope: grep string" })
+            vim.keymap.set('n', '<leader>fc', builtin.current_buffer_fuzzy_find,
+                { desc = "Telescope: buffer fuzzy find" })
+            vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = "Telescope: select buffer" })
+            vim.keymap.set('n', '<leader>fd',
                 function()
                     builtin.lsp_document_symbols({ show_line = true })
                 end,
