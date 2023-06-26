@@ -6,10 +6,15 @@ return {
         lazy = false,
         config = function()
             local bufferline = require('bufferline')
+            local highlights = require("nord").bufferline.highlights({
+                italic = true,
+                bold = true,
+            })
             bufferline.setup {
+                highlights = highlights,
                 options = {
                     show_close_icon = false,
-                    modified_icon = '',
+                    modified_icon = '',
                     separator_style = 'thin',
                     always_show_bufferline = true,
                     custom_filter = function(buf_number, _)
