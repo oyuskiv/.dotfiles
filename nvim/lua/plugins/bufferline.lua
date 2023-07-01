@@ -10,9 +10,11 @@ return {
                 italic = true,
                 bold = true,
             })
+
             bufferline.setup {
                 highlights = highlights,
                 options = {
+                    style_preset = bufferline.style_preset.minimal,
                     show_close_icon = false,
                     modified_icon = '',
                     separator_style = 'thin',
@@ -30,6 +32,7 @@ return {
             vim.keymap.set('n', '<leader>ac', bufferline.close_with_pick, { desc = 'Buffer: close picked beffer' })
             vim.keymap.set('n', '<leader>an', function() bufferline.cycle(1) end, { desc = 'Buffer: next buffer' })
             vim.keymap.set('n', '<leader>ap', function() bufferline.cycle(-1) end, { desc = 'Buffer: previous beffer' })
+
             vim.keymap.set('n', '<leader>ad',
                 function()
                     vim.cmd('wa')
@@ -46,6 +49,21 @@ return {
                     vim.cmd('redraw')
                 end,
                 { desc = 'Buffer: close other buffers' })
+
+            vim.keymap.set('n', '<leader>aD',
+                function()
+                    vim.cmd('wa')
+                    local buffers = vim.api.nvim_list_bufs()
+                    for _, b in ipairs(buffers) do
+                        if 1 == vim.fn.buflisted(b) then
+                            vim.api.nvim_buf_delete(b, { force = true })
+                        end
+                    end
+                    vim.cmd('redrawtabline')
+                    vim.cmd('redraw')
+                end,
+                { desc = 'Buffer: close all buffers' })
+
             vim.keymap.set('n', '<leader>aq',
                 function()
                     local buffers = vim.api.nvim_list_bufs()
@@ -55,7 +73,7 @@ return {
                         end
                     end
                 end,
-                { desc = 'Buffer: close quick list' })
+                { desc = 'Buffer: close quick fix list' })
         end
     }
 }
