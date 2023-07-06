@@ -1,6 +1,20 @@
 unsetopt BEEP                            # Disable beeping
 setopt GLOB_DOTS                         # Include hidden files/dirs
 autoload -U compinit
-zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
+
+# use completion menu
+zstyle ':completion:*' menu select
+
+# use cache
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
+
+# colors and decoration
+zstyle ':completion:*:*:*:*:descriptions' format '%F{green}-- %d --%f'
+zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
+zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
+
+# group results
+zstyle ':completion:*' group-name ''
