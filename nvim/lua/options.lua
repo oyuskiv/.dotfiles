@@ -25,6 +25,8 @@ vim.cmd('filetype plugin indent on') -- enable filetype plugin and indentation
 vim.g.netrw_hide = 1
 vim.g.netrw_list_hide = '^\\./$'
 vim.g.netrw_banner = 0
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 vim.g.mapleader = ' '
 

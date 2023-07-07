@@ -66,7 +66,7 @@ return {
                 tabline = {},
                 winbar = {},
                 inactive_winbar = {},
-                extensions = { 'quickfix' }
+                extensions = { 'quickfix', 'nvim-tree' }
             }
         end
     }
