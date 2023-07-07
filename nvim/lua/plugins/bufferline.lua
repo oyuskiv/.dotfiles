@@ -24,7 +24,17 @@ return {
                         if vim.bo[buf_number].filetype ~= 'qf' then
                             return true
                         end
-                    end
+                    end,
+                    offsets = {
+                        {
+                            filetype = "NvimTree",
+                            text = function()
+                                return vim.fn.getcwd()
+                            end,
+                            highlight = "Directory",
+                            text_align = "left"
+                        }
+                    },
                 }
             }
 
