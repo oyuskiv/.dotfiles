@@ -50,3 +50,11 @@ git:
 	@echo "git: copying new config ..."
 	@cp -r git ~/.config/git/git.config
 	@echo "git: done"
+
+.PHONY: lf
+lf:
+	@echo "lf: removing old config ..."
+	@rm -rf ~/.config/lf
+	@echo "lf: copying new config ..."
+	@cp -r lf ~/.config/lf
+	@echo "lf: done"
