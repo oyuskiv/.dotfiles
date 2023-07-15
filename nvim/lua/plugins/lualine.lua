@@ -32,25 +32,13 @@ return {
                     lualine_a = { 'mode' },
                     lualine_b = {
                         'branch',
+                        'diff',
                         {
                             'diagnostics',
                             symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
                         },
                     },
-                    lualine_c = {
-                        {
-                            'filename',
-                            path = 1
-                        },
-                        {
-                            function()
-                                return navic.get_location()
-                            end,
-                            cond = function()
-                                return navic.is_available()
-                            end
-                        },
-                    },
+                    lualine_c = {},
                     lualine_x = { 'encoding', 'fileformat', 'filetype' },
                     lualine_y = { 'progress' },
                     lualine_z = { 'location' }
@@ -64,9 +52,27 @@ return {
                     lualine_z = {}
                 },
                 tabline = {},
-                winbar = {},
+                winbar = {
+                    lualine_b = {
+                        {
+                            'filename',
+                            path = 1
+                        },
+                    },
+                    lualine_c = {
+                        {
+                            function()
+                                if navic.is_available() then
+                                    return navic.get_location()
+                                else
+                                    return ''
+                                end
+                            end
+                        },
+                    },
+                },
                 inactive_winbar = {},
-                extensions = { 'quickfix', 'nvim-tree' }
+                extensions = { 'quickfix', 'nvim-tree', 'nvim-dap-ui' }
             }
         end
     }
