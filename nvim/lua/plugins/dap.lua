@@ -76,7 +76,7 @@ return {
                     }
                 },
                 element_mappings = {},
-                expand_lines = true,
+                expand_lines = false,
                 floating = {
                     border = "single",
                     mappings = {
