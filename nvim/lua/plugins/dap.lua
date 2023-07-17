@@ -83,7 +83,7 @@ return {
                         close = { "q", "<Esc>" }
                     }
                 },
-                force_buffers = true,
+                force_buffers = false,
                 icons = {
                     collapsed = "",
                     current_frame = "",
