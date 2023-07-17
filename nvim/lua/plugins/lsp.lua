@@ -77,7 +77,7 @@ return {
                     vim.tbl_deep_extend("error", bufopts, { desc = "LSP: show references" }))
                 vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end,
                     vim.tbl_deep_extend("error", bufopts, { desc = "LSP: format buffer" }))
-                vim.keymap.set('n', '<leader>dt',
+                vim.keymap.set('n', '<leader>td',
                     function()
                         vim.diagnostic.reset()
                         if diagnostic_state then
