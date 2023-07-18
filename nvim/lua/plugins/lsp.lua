@@ -132,8 +132,11 @@ return {
               globals = { 'vim' },
             },
             workspace = {
-              -- Make the server aware of Neovim runtime files
-              library = vim.api.nvim_get_runtime_file('', true),
+              library = {
+                -- Make the server aware of Neovim runtime files
+                vim.api.nvim_get_runtime_file('', true),
+                '${3rd}/luassert/library',
+              }
             },
             -- Do not send telemetry data
             telemetry = {
@@ -166,7 +169,7 @@ return {
 
       -- Enable groovy server
       lspconfig.groovyls.setup {
-        cmd = { 'groovy-language-server' },         -- symlink on "java -jar groovy-language-server-all.jar"
+        cmd = { 'groovy-language-server' }, -- symlink on "java -jar groovy-language-server-all.jar"
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
