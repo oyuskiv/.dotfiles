@@ -4,11 +4,15 @@ return {
         build = 'make',
     },
     {
+        'nvim-telescope/telescope-dap.nvim',
+    },
+    {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.2',
         dependencies = {
             'nvim-lua/plenary.nvim',
             'nvim-telescope/telescope-fzf-native.nvim',
+            'nvim-telescope/telescope-dap.nvim',
         },
         lazy = false,
         config = function()
@@ -33,6 +37,7 @@ return {
             }
 
             require('telescope').load_extension('fzf')
+            require('telescope').load_extension('dap')
 
             local builtin = require('telescope.builtin')
             vim.keymap.set('n', '<leader>ff',
