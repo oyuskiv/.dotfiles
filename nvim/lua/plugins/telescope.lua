@@ -4,7 +4,10 @@ return {
     build = 'make',
   },
   {
-    'nvim-telescope/telescope-dap.nvim',
+    'oyuskiv/telescope-dap.nvim',
+  },
+  {
+    'nvim-telescope/telescope-ui-select.nvim',
   },
   {
     'nvim-telescope/telescope.nvim',
@@ -12,7 +15,7 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope-fzf-native.nvim',
-      'nvim-telescope/telescope-dap.nvim',
+      'oyuskiv/telescope-dap.nvim',
     },
     lazy = false,
     config = function()
@@ -28,16 +31,23 @@ return {
         },
         extensions = {
           fzf = {
-            fuzzy = true,                               -- false will only do exact matching
-            override_generic_sorter = true,             -- override the generic sorter
-            override_file_sorter = true,                -- override the file sorter
-            case_mode = "smart_case",                   -- or "ignore_case" or "respect_case"
+            fuzzy = true,                   -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true,    -- override the file sorter
+            case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+          },
+          ['ui-select'] = {
+            require("telescope.themes").get_cursor()
+          },
+          dap = {
+            dap_ui = require('telescope.themes').get_dropdown()
           }
         }
       }
 
       require('telescope').load_extension('fzf')
       require('telescope').load_extension('dap')
+      require("telescope").load_extension('ui-select')
 
       local builtin = require('telescope.builtin')
       vim.keymap.set('n', '<leader>ff',
