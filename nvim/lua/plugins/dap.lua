@@ -2,6 +2,9 @@ return {
     {
         'mfussenegger/nvim-dap',
         tag = '0.6.0',
+        dependencies = {
+            'nvim-telescope/telescope.nvim',
+        },
         config = function()
             local dap = require('dap')
             vim.keymap.set('n', '<Leader>dc', function() dap.continue() end, { desc = 'DAP: continue' })
@@ -33,6 +36,10 @@ return {
                 end,
                 { desc = 'DAP: set condition breakpoint' }
             )
+
+            vim.keymap.set('n', '<Leader>dl', function() require('telescope').extensions.dap.list_breakpoints() end,
+                { desc = 'DAP: list breakpoints' })
+            vim.keymap.set('n', '<Leader>dL', function() dap.clear_breakpoints() end, { desc = 'DAP: clear breakpoints' })
 
             vim.keymap.set('n', '<Leader>dp',
                 function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end,
