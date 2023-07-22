@@ -1,7 +1,8 @@
 return {
   {
     'nvim-telescope/telescope-fzf-native.nvim',
-    build = 'make',
+    build =
+    'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
   },
   {
     'oyuskiv/telescope-dap.nvim',
@@ -48,6 +49,7 @@ return {
       require('telescope').load_extension('fzf')
       require('telescope').load_extension('dap')
       require("telescope").load_extension('ui-select')
+      require("telescope").load_extension("flutter")
 
       local builtin = require('telescope.builtin')
       vim.keymap.set('n', '<leader>ff',
@@ -76,5 +78,5 @@ return {
         end
       })
     end
-  },
+  }
 }
