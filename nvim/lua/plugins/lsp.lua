@@ -2,7 +2,10 @@ return {
   {
     'neovim/nvim-lspconfig',
     lazy = false,
-    dependencies = { 'SmiteshP/nvim-navic' },
+    dependencies = {
+      'SmiteshP/nvim-navic',
+      'akinsho/flutter-tools.nvim',
+    },
     config = function()
       -- Set diagnostic sing symbols
       vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError', numhl = '' })
@@ -196,6 +199,22 @@ return {
           }
         }
       }
+
+      -- Enable flutter/dart server
+      require('flutter-tools').setup({
+        debugger = {
+          enabled = true,
+          run_via_dap = true,
+          register_configurations = function(_)
+            require("dap").configurations.dart = {}
+            require("dap.ext.vscode").load_launchjs()
+          end,
+        },
+        lsp = {
+          on_attach = on_attach,
+          capabilities = capabilities,
+        },
+      })
     end
-  }
+  },
 }
