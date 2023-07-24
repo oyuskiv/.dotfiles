@@ -1,0 +1,6 @@
+ext install streetsidesoftware.code-spell-checker
+ext install dart-code.flutter
+ext install golang.go
+ext install jdinhlife.gruvbox
+ext install arcticicestudio.nord-visual-studio-code
+ext install esbenp.prettier-vscode
