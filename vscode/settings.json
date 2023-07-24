@@ -88,5 +88,7 @@
   "workbench.startupEditor": "none",
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "editor.fontSize": 15,
+  "window.restoreWindows": "none"
 }

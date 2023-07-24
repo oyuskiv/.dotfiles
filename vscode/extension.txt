@@ -4,3 +4,4 @@ ext install golang.go
 ext install jdinhlife.gruvbox
 ext install arcticicestudio.nord-visual-studio-code
 ext install esbenp.prettier-vscode
+ext install vscodevim.vim
