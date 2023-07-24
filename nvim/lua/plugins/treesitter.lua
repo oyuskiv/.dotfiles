@@ -12,7 +12,7 @@ return {
         },
         indent = {
           enable = true,
-          disable = {},
+          disable = { "dart" }, -- https://github.com/nvim-treesitter/nvim-treesitter/issues/4945
         },
         incremental_selection = {
           enable = true,
