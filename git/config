@@ -11,7 +11,7 @@
     excludesfile = ~/.config/git/git.config/gitignore
     pager = delta
 [pull]
-    rebase = false
+    rebase = true
 [merge]
     conflictstyle = diff3
 [diff]
@@ -28,5 +28,5 @@
     light = false # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
     line-numbers = true
     side-by-side = false
-    features = chameleon
+    features = collared-trogon
     true-color = always
