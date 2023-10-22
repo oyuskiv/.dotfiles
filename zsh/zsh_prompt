@@ -4,6 +4,7 @@ setopt prompt_subst
 # setup a hook that runs before every ptompt.
 precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
+precmd_functions+=( set_promt )
 
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
@@ -40,4 +41,9 @@ zstyle ':vcs_info:git:*' patch-format "%n/%a"
 	esac
 }
 
-PROMPT="%B%{$fg[cyan]%}%n%{$fg[blue]%}@%{$fg[green]%}%m:%{$fg[yellow]%}%~%{$reset_color%}%b"$'${vcs_info_msg_0_}\n$ '
+set_promt() {
+    if [ ! -z $VIRTUAL_ENV ] ; then
+        pyenv="( $(basename $VIRTUAL_ENV))"
+    fi
+    PROMPT="%B%{$fg[cyan]%}%n%{$fg[blue]%}@%{$fg[green]%}%m:%{$fg[yellow]%}%~${pyenv}%{$reset_color%}%b"$'${vcs_info_msg_0_}\n$ '
+}
