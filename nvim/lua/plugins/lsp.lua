@@ -102,7 +102,7 @@ return {
       local lspconfig = require('lspconfig')
 
       -- Enable golang server
-      lspconfig.gopls.setup {
+      lspconfig.gopls.setup({
         capabilities = capabilities,
         on_attach = function(client, bufnr)
           navic.attach(client, bufnr)
@@ -110,17 +110,17 @@ return {
         end,
         flags = lsp_flags,
         single_file_support = false,
-      }
+      })
 
       -- Enable golint server
-      lspconfig.golangci_lint_ls.setup {
+      lspconfig.golangci_lint_ls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
-      }
+      })
 
       -- Enable lua server
-      lspconfig.lua_ls.setup {
+      lspconfig.lua_ls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
@@ -147,46 +147,46 @@ return {
             },
           },
         },
-      }
+      })
 
       -- Enable bash server
-      lspconfig.bashls.setup {
+      lspconfig.bashls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
-      }
+      })
 
       -- Enable python server
-      lspconfig.pyright.setup {
+      lspconfig.pyright.setup({
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
-      }
+      })
 
       -- Enable terraform server
-      lspconfig.terraformls.setup {
+      lspconfig.terraformls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
-      }
+      })
 
       -- Enable groovy server
-      lspconfig.groovyls.setup {
+      lspconfig.groovyls.setup({
         cmd = { 'groovy-language-server' }, -- symlink on "java -jar groovy-language-server-all.jar"
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
-      }
+      })
 
       -- Enable docker server
-      lspconfig.dockerls.setup {
+      lspconfig.dockerls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
-      }
+      })
 
       -- Enable yaml server
-      lspconfig.yamlls.setup {
+      lspconfig.yamlls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
@@ -198,7 +198,7 @@ return {
             }
           }
         }
-      }
+      })
 
       -- Enable flutter/dart server
       require('flutter-tools').setup({
@@ -214,6 +214,14 @@ return {
           on_attach = on_attach,
           capabilities = capabilities,
         },
+      })
+
+      -- Enable c++ server
+      lspconfig.clangd.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        flags = lsp_flags,
+        filetypes = { "c", "cpp", "objc", "objcpp", "cuda" } -- "proto" is excluded
       })
     end
   },
