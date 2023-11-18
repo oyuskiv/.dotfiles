@@ -13,6 +13,7 @@ zsh_add_file zsh_history
 zsh_add_file zsh_prompt
 zsh_add_file zsh_alias
 zsh_add_file zsh_vi
+zsh_add_file zsh_keymap
 zsh_add_dir $XDG_CONFIG_HOME/shell-env
 
 [ ! -z "$(command -v direnv)" ] && eval "$(direnv hook zsh)"

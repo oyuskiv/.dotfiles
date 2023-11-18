@@ -87,3 +87,22 @@ setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
 setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
 alias d="dirs -v | head -n 5 | awk '{print \$1 + 1, \$2}'"
 for index ({1..5}) alias "$index"="cd +$((index - 1))"; unset index
+
+# change working dir in shell to last dir in lf on exit
+lfcd () {
+    # `command` is needed in case `lfcd` is aliased to `lf`
+    cd "$(command lf -print-last-dir "$@")"
+}
+
+####################################################################################
+# python
+####################################################################################
+# activate python venv
+pyenv() {
+    if [ -f $HOME/.local/python/$1/bin/activate ]; then
+        echo -e "\033[0;32mactivate python venv $1\033[0m"
+        source $HOME/.local/python/$1/bin/activate
+    else
+        echo -e "\033[0;31mpython venv $1 not found\033[0m"
+    fi
+}

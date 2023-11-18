@@ -1,4 +1,6 @@
 set ignorecase true
 set icons true
 set previewer ~/.config/lf/previewer.sh
+set hidden
+
 map i $bat "$f"
