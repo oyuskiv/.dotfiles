@@ -30,11 +30,20 @@ vim.g.loaded_netrwPlugin = 1
 
 vim.g.mapleader = ' '
 
+local max_filesize = 100 * 1024 -- 100 KB
+
 -- auto format file during save
 local group_autoformat = vim.api.nvim_create_augroup('auto format', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePre', {
   callback = function()
     local bufnr = vim.api.nvim_win_get_buf(0)
+
+    -- skip large files
+    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+    if ok and stats and stats.size > max_filesize then
+      return
+    end
+
     local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
     for _, c in ipairs(clients) do
       if c.server_capabilities.documentFormattingProvider then
@@ -46,6 +55,25 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   end,
   pattern = '*',
   group = group_autoformat
+})
+
+local large_file = vim.api.nvim_create_augroup('large file', { clear = true })
+vim.api.nvim_create_autocmd('BufEnter', {
+  callback = function()
+    local bufnr = vim.api.nvim_win_get_buf(0)
+    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+    if ok and stats and stats.size > max_filesize then
+      vim.opt.number = false
+      vim.opt.relativenumber = false
+      vim.cmd('syntax off')
+      return
+    end
+    vim.cmd('syntax on')
+    vim.opt.number = true
+    vim.opt.relativenumber = true
+  end,
+  pattern = '*',
+  group = large_file
 })
 
 -- highlight on yank
