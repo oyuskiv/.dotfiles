@@ -193,7 +193,8 @@ return {
         settings = {
           yaml = {
             schemas = {
-              ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.1-standalone-strict/all.json"] = "/*k8s*.yaml",
+              ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.1-standalone-strict/all.json"] =
+              "/*k8s*.yaml",
               ["http://json.schemastore.org/kustomization"] = "kustomization.yaml",
             }
           }
@@ -222,6 +223,13 @@ return {
         on_attach = on_attach,
         flags = lsp_flags,
         filetypes = { "c", "cpp", "objc", "objcpp", "cuda" } -- "proto" is excluded
+      })
+
+      -- Enable cmake server
+      lspconfig.cmake.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        flags = lsp_flags,
       })
     end
   },
