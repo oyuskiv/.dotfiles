@@ -48,6 +48,7 @@ git:
 	@echo "git: removing old config ..."
 	@rm -rf ~/.config/git/git.config
 	@echo "git: copying new config ..."
+	@mkdir -p ~/.config/git
 	@cp -r git ~/.config/git/git.config
 	@echo "git: done"
 
