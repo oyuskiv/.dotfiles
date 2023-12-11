@@ -12,7 +12,7 @@ return {
   },
   {
     'nvim-telescope/telescope.nvim',
-    tag = '0.1.2',
+    tag = '0.1.5',
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope-fzf-native.nvim',
@@ -52,11 +52,9 @@ return {
       require("telescope").load_extension("flutter")
 
       local builtin = require('telescope.builtin')
-      vim.keymap.set('n', '<leader>ff',
-        function()
-          builtin.find_files({ no_ignore = true, follow = true })
-        end,
-        { desc = "Telescope: find files" })
+      vim.keymap.set('n', '<leader>ff', builtin.find_files({ follow = true }) { desc = "Telescope: find files" })
+      vim.keymap.set('n', '<leader>fF',
+        builtin.find_files({ follow = true, no_ignore = true, hidden = true }) { desc = "Telescope: find files no ignore/hidden" })
       vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = "Telescope: live grep" })
       vim.keymap.set('n', '<leader>fs', builtin.grep_string, { desc = "Telescope: grep string" })
       vim.keymap.set('n', '<leader>fc', builtin.current_buffer_fuzzy_find,
@@ -67,16 +65,6 @@ return {
           builtin.lsp_document_symbols({ show_line = true })
         end,
         { desc = "Telescope: document symbols" })
-
-      -- Fix folding for opened files from Telescope
-      vim.api.nvim_create_autocmd('BufRead', {
-        callback = function()
-          vim.api.nvim_create_autocmd('BufWinEnter', {
-            once = true,
-            command = 'normal! zx'
-          })
-        end
-      })
     end
   }
 }

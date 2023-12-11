@@ -1,7 +1,7 @@
 return {
   {
     'akinsho/flutter-tools.nvim',
-    tag = 'v1.3.0',
+    tag = 'v1.5.1',
     lazy = false,
     dependencies = {
       'nvim-lua/plenary.nvim',

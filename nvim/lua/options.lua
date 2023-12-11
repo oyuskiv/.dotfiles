@@ -57,6 +57,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   group = group_autoformat
 })
 
+-- disable suntax and number options for better perfomance for large files
 local large_file = vim.api.nvim_create_augroup('large file', { clear = true })
 vim.api.nvim_create_autocmd('BufEnter', {
   callback = function()
