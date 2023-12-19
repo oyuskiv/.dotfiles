@@ -1,7 +1,7 @@
 return {
   {
     'mfussenegger/nvim-dap',
-    tag = '0.6.0',
+    tag = '0.7.0',
     config = function()
       local dap = require('dap')
       vim.keymap.set('n', '<Leader>dc', function() dap.continue() end, { desc = 'DAP: continue' })
