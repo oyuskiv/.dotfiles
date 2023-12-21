@@ -5,9 +5,9 @@ return {
     config = function()
       local api = require('nvim-tree.api')
       require('nvim-tree').setup({
-        sort_by = "case_sensitive",
+        sort_by = 'case_sensitive',
         view = {
-          side = "right",
+          side = 'right',
           width = 40,
         },
         renderer = {

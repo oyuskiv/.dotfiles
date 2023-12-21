@@ -6,7 +6,7 @@ return {
     lazy = false,
     config = function()
       local bufferline = require('bufferline')
-      local highlights = require("nord").bufferline.highlights({
+      local highlights = require('nord').bufferline.highlights({
         italic = true,
         bold = true,
       })
@@ -27,12 +27,12 @@ return {
           end,
           offsets = {
             {
-              filetype = "NvimTree",
+              filetype = 'NvimTree',
               text = function()
                 return vim.fn.getcwd()
               end,
-              highlight = "Directory",
-              text_align = "left"
+              highlight = 'Directory',
+              text_align = 'left'
             }
           },
         }
