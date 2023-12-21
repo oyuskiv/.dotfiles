@@ -52,9 +52,13 @@ return {
       require("telescope").load_extension("flutter")
 
       local builtin = require('telescope.builtin')
-      vim.keymap.set('n', '<leader>ff', builtin.find_files({ follow = true }) { desc = "Telescope: find files" })
+      vim.keymap.set('n', '<leader>ff', function() builtin.find_files({ follow = true }) end,
+        { desc = "Telescope: find files" })
       vim.keymap.set('n', '<leader>fF',
-        builtin.find_files({ follow = true, no_ignore = true, hidden = true }) { desc = "Telescope: find files no ignore/hidden" })
+        function()
+          builtin.find_files({ follow = true, no_ignore = true, hidden = true })
+        end,
+        { desc = "Telescope: find files no ignore/hidden" })
       vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = "Telescope: live grep" })
       vim.keymap.set('n', '<leader>fs', builtin.grep_string, { desc = "Telescope: grep string" })
       vim.keymap.set('n', '<leader>fc', builtin.current_buffer_fuzzy_find,
