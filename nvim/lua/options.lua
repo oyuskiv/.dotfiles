@@ -88,40 +88,40 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- indent text
-vim.api.nvim_set_keymap('n', '>', '>>', { noremap = true, silent = true, desc = "normal mode: shift text to right" })
-vim.api.nvim_set_keymap('n', '<', '<<', { noremap = true, silent = true, desc = "normal mode: shift text to left" })
-vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true, silent = true, desc = "visual mode: shift text to right" })
-vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true, silent = true, desc = "visual mode: shift text to left" })
+vim.api.nvim_set_keymap('n', '>', '>>', { noremap = true, silent = true, desc = 'normal mode: shift text to right' })
+vim.api.nvim_set_keymap('n', '<', '<<', { noremap = true, silent = true, desc = 'normal mode: shift text to left' })
+vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true, silent = true, desc = 'visual mode: shift text to right' })
+vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true, silent = true, desc = 'visual mode: shift text to left' })
 
 -- move text up/down
 vim.api.nvim_set_keymap('x', '<C-k>', ":move '<-2<CR>gv-gv",
-  { noremap = true, silent = true, desc = "visual mode: move block up" })
+  { noremap = true, silent = true, desc = 'visual mode: move block up' })
 vim.api.nvim_set_keymap('x', '<C-j>', ":move '>+1<CR>gv-gv",
-  { noremap = true, silent = true, desc = "visual mode: move block down" })
+  { noremap = true, silent = true, desc = 'visual mode: move block down' })
 
 -- window navigation
 vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k',
-  { noremap = true, silent = true, desc = "select above window" })
+  { noremap = true, silent = true, desc = 'select above window' })
 vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j',
-  { noremap = true, silent = true, desc = "select below window" })
+  { noremap = true, silent = true, desc = 'select below window' })
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h',
-  { noremap = true, silent = true, desc = "select left window" })
+  { noremap = true, silent = true, desc = 'select left window' })
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l',
-  { noremap = true, silent = true, desc = "select right window" })
+  { noremap = true, silent = true, desc = 'select right window' })
 
 -- clear highlight
 vim.api.nvim_set_keymap('n', '<leader>l', ':noh<CR>',
-  { noremap = true, silent = true, desc = "clear highlight" })
+  { noremap = true, silent = true, desc = 'clear highlight' })
 
 -- resize window
 vim.api.nvim_set_keymap('n', '<C-Up>', ':resize -2<CR>',
-  { noremap = true, silent = true, desc = "normal mode: window resize -2" })
+  { noremap = true, silent = true, desc = 'normal mode: window resize -2' })
 vim.api.nvim_set_keymap('n', '<C-Down>', ':resize +2<CR>',
-  { noremap = true, silent = true, desc = "normal mode: window resize +2" })
+  { noremap = true, silent = true, desc = 'normal mode: window resize +2' })
 vim.api.nvim_set_keymap('n', '<C-Left>', ':vertical resize -2<CR>',
-  { noremap = true, silent = true, desc = "normal mode: window vertical resize -2" })
+  { noremap = true, silent = true, desc = 'normal mode: window vertical resize -2' })
 vim.api.nvim_set_keymap('n', '<C-Right>', ':vertical resize +2<CR>',
-  { noremap = true, silent = true, desc = "normal mode: window vertical resize +2" })
+  { noremap = true, silent = true, desc = 'normal mode: window vertical resize +2' })
 
 -- don't overwrite buffer after paste
 vim.api.nvim_set_keymap('v', 'p', '"_dP', { noremap = true, silent = true })

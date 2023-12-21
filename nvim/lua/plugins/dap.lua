@@ -65,76 +65,76 @@ return {
     config = function()
       require('dapui').setup({
         controls = {
-          element = "repl",
+          element = 'repl',
           enabled = true,
           icons = {
-            disconnect = "",
-            pause = "",
-            play = "",
-            run_last = "",
-            step_back = "",
-            step_into = "",
-            step_out = "",
-            step_over = "",
-            terminate = ""
+            disconnect = '',
+            pause = '',
+            play = '',
+            run_last = '',
+            step_back = '',
+            step_into = '',
+            step_out = '',
+            step_over = '',
+            terminate = ''
           }
         },
         element_mappings = {},
         expand_lines = false,
         floating = {
-          border = "single",
+          border = 'single',
           mappings = {
-            close = { "q", "<Esc>" }
+            close = { 'q', '<Esc>' }
           }
         },
         force_buffers = false,
         icons = {
-          collapsed = "",
-          current_frame = "",
-          expanded = ""
+          collapsed = '',
+          current_frame = '',
+          expanded = ''
         },
         layouts = { {
           elements = {
             {
-              id = "breakpoints",
+              id = 'breakpoints',
               size = 0.30
             },
             {
-              id = "watches",
+              id = 'watches',
               size = 0.30
             },
             {
-              id = "stacks",
+              id = 'stacks',
               size = 0.30
             },
             {
-              id = "console",
+              id = 'console',
               size = 0.10
             }
           },
-          position = "right",
+          position = 'right',
           size = 40
         }, {
           elements = {
             {
-              id = "scopes",
+              id = 'scopes',
               size = 0.5
             },
             {
-              id = "repl",
+              id = 'repl',
               size = 0.5
             }
           },
-          position = "bottom",
+          position = 'bottom',
           size = 10
         } },
         mappings = {
-          edit = "e",
-          expand = { "<CR>", "<2-LeftMouse>" },
-          open = "o",
-          remove = "d",
-          repl = "r",
-          toggle = "t"
+          edit = 'e',
+          expand = { '<CR>', '<2-LeftMouse>' },
+          open = 'o',
+          remove = 'd',
+          repl = 'r',
+          toggle = 't'
         },
         render = {
           indent = 1,
