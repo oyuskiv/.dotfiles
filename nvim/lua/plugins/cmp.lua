@@ -6,7 +6,7 @@ return {
   { 'hrsh7th/cmp-nvim-lsp-signature-help' },
   {
     'L3MON4D3/LuaSnip',
-    tag = "v2.*",
+    version = "v2.*"
   },
   { 'saadparwaiz1/cmp_luasnip' },
   {
