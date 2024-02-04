@@ -231,6 +231,13 @@ return {
         on_attach = on_attach,
         flags = lsp_flags,
       })
+
+      -- Enable rust server
+      lspconfig.rust_analyzer.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        flags = lsp_flags,
+      })
     end
   },
 }
