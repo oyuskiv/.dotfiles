@@ -11,7 +11,7 @@
 [core]
     editor = nvim
     symlinks = true
-    excludesfile = ~/.config/git/git.config/gitignore
+    excludesfile = ~/.config/git/gitignore
     pager = delta
 [pull]
     rebase = true

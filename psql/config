@@ -1,0 +1,11 @@
+\set QUIET 1
+
+\set HISTFILE ~/.cache/psql/psql_history_:DBNAME
+\set HISTSIZE 2000
+\set PROMPT1 '%001%[%033[1;36m%]%002%n%001%[%033[1;34m%]%002%001%[%033[0;34m%]%002@%001%[%033[0;32m%]%002%/ %001%[%033[0;35m%]%002%x%001%[%033[0m%]%002\n%001%[%033[0;33m%]%002psql %R%#%001%[%033[0m%]%002 '
+\set PROMPT2 '%001%[%033[0;33m%]%002%R%#%001%[%033[0m%]%002 '
+\pset null '[null]'
+\x auto
+\timing
+
+\set QUIET 0
