@@ -1,5 +1,5 @@
 .PHONY: all
-all: nvim tmux kitty zsh git bat
+all: nvim tmux kitty zsh git bat psql
 
 .PHONY: nvim
 nvim:
@@ -46,10 +46,9 @@ bat:
 .PHONY: git
 git:
 	@echo "git: removing old config ..."
-	@rm -rf ~/.config/git/git.config
+	@rm -rf ~/.config/git
 	@echo "git: copying new config ..."
-	@mkdir -p ~/.config/git
-	@cp -r git ~/.config/git/git.config
+	@cp -r git ~/.config/git
 	@echo "git: done"
 
 .PHONY: lf
@@ -59,3 +58,11 @@ lf:
 	@echo "lf: copying new config ..."
 	@cp -r lf ~/.config/lf
 	@echo "lf: done"
+
+.PHONY: psql
+psql:
+	@echo "psql: removing old config ..."
+	@rm -rf ~/.config/psql
+	@echo "psql: copying new config ..."
+	@cp -r psql ~/.config/psql
+	@echo "psql: done"
