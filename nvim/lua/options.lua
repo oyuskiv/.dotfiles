@@ -30,7 +30,7 @@ vim.g.loaded_netrwPlugin = 1
 
 vim.g.mapleader = ' '
 
-local max_filesize = 100 * 1024 -- 100 KB
+local max_filesize = 500 * 1024 -- 500 KB
 
 -- auto format file during save
 local group_autoformat = vim.api.nvim_create_augroup('auto format', { clear = true })
