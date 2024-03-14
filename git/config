@@ -4,7 +4,7 @@
     show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
     co = !git branch | fzf --height=50% --reverse --info=inline | tr -d \"[:space:]*\" | xargs -r git checkout
     bd = !git branch | fzf --height=50% --reverse --info=inline --multi | xargs -r git branch -D
-    cob = !git branch -r | cut -d '/' -f2- | fzf --height=50% --reverse --info=inline | xargs -r -i git checkout -b {} origin/{}
+    cob = !git branch -r | cut -d '/' -f2- | fzf --height=50% --reverse --info=inline | xargs -r -I{} git checkout -b {} origin/{}
     uf = !git diff --name-only --cached | fzf --bind ctrl-j:preview-down,ctrl-k:preview-up --preview-window down,80%  --reverse --info=inline --multi --header=\"Unstage files\" --marker=- --preview \"git diff --color=always --cached {} 2>/dev/null | delta\" | xargs -r git restore --staged
     sf = !git ls-files -m -o --exclude-standard | fzf --bind ctrl-j:preview-down,ctrl-k:preview-up --preview-window down,80% --reverse --info=inline --multi --header=\"Stage files\" --marker=+ --preview \"git diff --color=always {} 2>/dev/null | delta\" | xargs -r git add
     rf = !git ls-files -m --exclude-standard | fzf --bind ctrl-j:preview-down,ctrl-k:preview-up --preview-window down,80% --reverse --info=inline --multi --header=\"Restore files\" --marker=+ --preview \"git diff --color=always {} 2>/dev/null | delta\" | xargs -r git restore
