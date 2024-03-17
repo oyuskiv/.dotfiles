@@ -16,4 +16,11 @@ zsh_add_file zsh_vi
 zsh_add_file zsh_keymap
 zsh_add_dir $XDG_CONFIG_HOME/shell-env
 
+export PATH="$HOME/.local/bin:$PATH"
+
+# set homebrew
+[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[ -f /usr/local/bin/brew ] && eval "$(/usr/local/bin/brew shellenv)"
+
+# set direnv
 [ ! -z "$(command -v direnv)" ] && eval "$(direnv hook zsh)"
