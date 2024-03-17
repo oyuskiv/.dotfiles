@@ -1,5 +1,5 @@
 .PHONY: all
-all: nvim tmux kitty zsh git bat psql
+all: nvim tmux kitty zsh git bat psql lazygit
 
 .PHONY: nvim
 nvim:
@@ -66,3 +66,12 @@ psql:
 	@echo "psql: copying new config ..."
 	@cp -r psql ~/.config/psql
 	@echo "psql: done"
+
+
+.PHONY: lazygit
+lazygit:
+	@echo "lazygit: removing old config ..."
+	@rm -rf ~/.config/lazygit
+	@echo "lazygit: copying new config ..."
+	@cp -r lazygit ~/.config/lazygit
+	@echo "lazygit: done"
