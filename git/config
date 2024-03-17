@@ -2,9 +2,9 @@
     lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%ai%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
     find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
     show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
-    co = !git branch | fzf --height=50% --reverse --info=inline | tr -d \"[:space:]*\" | xargs -r git checkout
-    bd = !git branch | fzf --height=50% --reverse --info=inline --multi | xargs -r git branch -D
-    cob = !git branch -r | cut -d '/' -f2- | fzf --height=50% --reverse --info=inline | xargs -r -I{} git checkout -b {} origin/{}
+    co = !git branch | fzf --height=50% --reverse --info=inline --header=\"Branch checkout\" | tr -d \"[:space:]*\" | xargs -r git checkout
+    bd = !git branch | fzf --height=50% --reverse --info=inline --multi --header=\"Branch delete\" | xargs -r git branch -D
+    cob = !git branch -r | cut -d '/' -f2- | fzf --height=50% --reverse --info=inline --header=\"Remote branch checkout\" | xargs -r -I{} git checkout -b {} origin/{}
     uf = !git diff --name-only --cached | fzf --bind ctrl-j:preview-down,ctrl-k:preview-up --preview-window down,80%  --reverse --info=inline --multi --header=\"Unstage files\" --marker=- --preview \"git diff --color=always --cached {} 2>/dev/null | delta\" | xargs -r git restore --staged
     sf = !git ls-files -m -o --exclude-standard | fzf --bind ctrl-j:preview-down,ctrl-k:preview-up --preview-window down,80% --reverse --info=inline --multi --header=\"Stage files\" --marker=+ --preview \"git diff --color=always {} 2>/dev/null | delta\" | xargs -r git add
     rf = !git ls-files -m --exclude-standard | fzf --bind ctrl-j:preview-down,ctrl-k:preview-up --preview-window down,80% --reverse --info=inline --multi --header=\"Restore files\" --marker=+ --preview \"git diff --color=always {} 2>/dev/null | delta\" | xargs -r git restore
@@ -33,3 +33,4 @@
     side-by-side = false
     features = collared-trogon
     true-color = always
+    tabs = 4
