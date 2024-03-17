@@ -4,12 +4,27 @@
 alias ls='ls --color=auto'
 alias ll='ls -Alp'
 
+####################################################################################
+# vim
+####################################################################################
+alias vim='nvim'
+
+####################################################################################
+# git
+####################################################################################
+alias lg='lazygit'
 
 ####################################################################################
 # history
 ####################################################################################
+# run selected history command
 function fh() {
-    eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+    eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf --height=50% --info=inline --reverse +s --tac --reverse --header="Run history command" | sed 's/ *[0-9]* *//')
+}
+
+# print selected history command
+function fhp() {
+    ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf --height=50% --info=inline --reverse +s --tac --reverse --header="Print history command" | sed 's/ *[0-9]* *//'
 }
 
 ####################################################################################
@@ -17,13 +32,13 @@ function fh() {
 ####################################################################################
 
 # select pane
-tmpane() {
+tmp() {
     local panes current_window current_pane target target_window target_pane
     panes=$(tmux list-panes -s -F '#I:#P - #{pane_current_path} #{pane_current_command}')
     current_pane=$(tmux display-message -p '#I:#P')
     current_window=$(tmux display-message -p '#I')
 
-    target=$(echo "$panes" | grep -v "$current_pane" | fzf +m --reverse) || return
+    target=$(echo "$panes" | grep -v "$current_pane" | fzf +m --height=50% --info=inline --reverse --header="Select tmux pane") || return
 
     target_window=$(echo $target | awk 'BEGIN{FS=":|-"} {print$1}')
     target_pane=$(echo $target | awk 'BEGIN{FS=":|-"} {print$2}' | cut -c 1)
@@ -42,24 +57,13 @@ tm() {
     if [ $1 ]; then
       tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -c ~ -s $1 && tmux $change -t "$1"); return
     fi
-    session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
-}
-
-# select tmux session
-tms() {
-    local session
-    session=$(tmux list-sessions -F "#{session_name}" | fzf --query="$1" --select-1 --exit-0)
-    if [[ -n "$TMUX" ]]; then
-        tmux switch-client -t "$session"
-    else
-        tmux attach-session -t "$session"
-    fi
+    session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --height=50% --info=inline --header="Select tmux session" --reverse --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
 }
 
 # kill tmux sessions
 tmk() {
     local sessions
-    sessions="$(tmux ls | fzf --exit-0 --multi)" || return $?
+    sessions=$(tmux ls | fzf --height=50% --info=inline --reverse --header="Kill tmux session" --exit-0 --multi) || return $?
     local i
     for i in "$sessions"
     do
@@ -70,16 +74,81 @@ tmk() {
 ####################################################################################
 # fzf
 ####################################################################################
-alias ffo='fzf --print0 --reverse --preview "bat --color=always {}" --bind "ctrl-j:preview-down,ctrl-k:preview-up" | xargs -0 -r nvim'
+#change directory
+fcd() {
+    base_dir="."
+    if [ -n "$1" ]; then
+        base_dir="$1"
+    fi
+    selected_dir=$(fd -I -H -td -E .git --base-directory ${base_dir} | sort -n | fzf --print0 --info=inline --reverse --header="Select directory")
+    if [ $? -eq 0 ]; then
+        cd ${base_dir}/${selected_dir}
+    fi
+}
 
+#edit file
+ffo() {
+    if [ -z "$1" ]; then
+        fd -H -I -E .DS_Store -E .localized -E .git -tf -tl | \
+            fzf --print0 --info=inline --reverse --header="Edit file" --preview "bat --color=always {}" --bind "ctrl-d:preview-down,ctrl-u:preview-up" | \
+            xargs -0 -r nvim
+    else
+        cd $1; \
+            fd -H -I -E .DS_Store -E .localized -E .git -tf -tl | \
+            fzf --print0 --info=inline --reverse --header="Edit file" --preview "bat --color=always {}" --bind "ctrl-d:preview-down,ctrl-u:preview-up" | \
+            xargs -0 -r nvim
+    fi
+}
+
+fif() {
+  if [ ! "$#" -gt 0 ]; then
+      echo "Need a string to search for!"
+      return 1
+  fi
+  rg --files-with-matches --no-messages "$1" | fzf --info=inline --reverse --header "Select file" --bind "ctrl-d:preview-down,ctrl-u:preview-up" --preview "bat --color=always {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
+}
 ####################################################################################
 # cd
 ####################################################################################
-alias cd1='cd ..'
-alias cd2='cd ../../'
-alias cd3='cd ../../../'
-alias cd4='cd ../../../../'
-alias cd5='cd ../../../../../'
+cd1() {
+    if [ -z "$1" ]; then
+        cd ..
+    else
+        cd ../$1
+    fi
+}
+
+cd2() {
+    if [ -z "$1" ]; then
+        cd ../../
+    else
+        cd ../../$1
+    fi
+}
+
+cd3() {
+    if [ -z "$1" ]; then
+        cd ../../../
+    else
+        cd ../../../$1
+    fi
+}
+
+cd4() {
+    if [ -z "$1" ]; then
+        cd ../../../../
+    else
+        cd ../../../../$1
+    fi
+}
+
+cd5() {
+    if [ -z "$1" ]; then
+        cd ../../../../../
+    else
+        cd ../../../../../$1
+    fi
+}
 
 # create alias for recently visited directories
 setopt AUTO_PUSHD           # Push the current directory visited on the stack.
