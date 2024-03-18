@@ -12,4 +12,4 @@ export XDG_STATE_HOME=$HOME/.local/state
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 
 # less
-export LESSHISTFILE=$XDG_STATE_HOME/less/history
+export LESSHISTFILE=$XDG_STATE_HOME/less_history
