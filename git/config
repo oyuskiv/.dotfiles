@@ -20,7 +20,10 @@
 [diff]
     colorMoved = default
     tool = nvimdiff
-
+[rerere]
+        enabled = true
+[init]
+        defaultBranch = main
 # delta configuration
 [include]
     path = delta-themes.cfg
