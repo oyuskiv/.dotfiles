@@ -15,7 +15,7 @@ tmux:
 	@rm -rf ~/.config/tmux
 	@echo "tmux: copying new config ..."
 	@git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/tpm
-	@cp -r tmux ~/.config/tmux
+	@cp -r tmux ~/.config
 	@echo "tmux: done"
 
 .PHONY: kitty
