@@ -14,6 +14,7 @@ tmux:
 	@echo "tmux: removing old config ..."
 	@rm -rf ~/.config/tmux
 	@echo "tmux: copying new config ..."
+	@git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/tpm
 	@cp -r tmux ~/.config/tmux
 	@echo "tmux: done"
 
