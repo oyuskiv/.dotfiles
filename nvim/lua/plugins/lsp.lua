@@ -59,7 +59,7 @@ return {
           vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: show documentation on hover' }))
         vim.keymap.set('n', 'gi', vim.lsp.buf.implementation,
           vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: go to implementation' }))
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help,
+        vim.keymap.set('n', '<C-m>', vim.lsp.buf.signature_help,
           vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: show signature help' }))
         vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder,
           vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: add directory to workspace' }))

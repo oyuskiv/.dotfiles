@@ -9,6 +9,7 @@ return {
     version = "v2.*"
   },
   { 'saadparwaiz1/cmp_luasnip' },
+  { 'rafamadriz/friendly-snippets' },
   {
     'onsails/lspkind.nvim',
     lazy = false,
@@ -30,10 +31,41 @@ return {
       'hrsh7th/cmp-nvim-lsp-signature-help',
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
+      'rafamadriz/friendly-snippets',
     },
     config = function()
-      local cmp = require('cmp')
+      -- load snipet from  rafamadriz/friendly-snippets
+      require("luasnip.loaders.from_vscode").lazy_load()
+
       local luasnip = require('luasnip')
+
+      local opts = { noremap = true, silent = true }
+
+      vim.keymap.set({ 'i', 's' }, '<C-l>',
+        function()
+          if luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
+          end
+        end,
+        vim.tbl_deep_extend('error', opts, { desc = 'Luasnip: expand or jump forward' }))
+
+      vim.keymap.set({ 'i', 's' }, '<C-k>',
+        function()
+          if luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+          end
+        end,
+        vim.tbl_deep_extend('error', opts, { desc = 'Luasnip: jump backward' }))
+
+      -- vim.keymap.set({ 'i', 's' }, '<C-J>',
+      --   function()
+      --     if luasnip.choice_active() then
+      --       luasnip.change_choice(1)
+      --     end
+      --   end,
+      --   vim.tbl_deep_extend('error', opts, { desc = 'Luasnip: change choise' }))
+
+      local cmp = require('cmp')
       local lspkind = require('lspkind')
 
       cmp.setup {
@@ -50,9 +82,13 @@ return {
         sources = {
           { name = 'nvim_lua' },
           { name = 'nvim_lsp' },
-          { name = 'path' },
           { name = 'luasnip' },
-          { name = 'buffer',                 max_item_count = 4, keyword_length = 3 },
+          { name = 'path' },
+          {
+            name = 'buffer',
+            max_item_count = 4,
+            keyword_length = 3,
+          },
           { name = 'nvim_lsp_signature_help' },
         },
         snippet = {
@@ -64,10 +100,10 @@ return {
           format = lspkind.cmp_format {
             with_text = true,
             menu = {
+              nvim_lsp = '[lsp]',
               buffer = '[buf]',
-              nvim_lsp = '[LSP]',
-              path = '[path]',
               luasnip = '[snip]',
+              path = '[path]',
             }
           }
         },
