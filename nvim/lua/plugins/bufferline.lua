@@ -6,13 +6,9 @@ return {
     lazy = false,
     config = function()
       local bufferline = require('bufferline')
-      local highlights = require('nord').bufferline.highlights({
-        italic = true,
-        bold = true,
-      })
 
       bufferline.setup {
-        highlights = highlights,
+        highlights = require("nord.plugins.bufferline").akinsho(),
         options = {
           style_preset = bufferline.style_preset.minimal,
           show_close_icon = false,
