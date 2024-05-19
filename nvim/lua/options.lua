@@ -1,3 +1,4 @@
+vim.opt.shortmess:append('I')        -- disable welcome screen
 vim.opt.expandtab = true             -- expand tab by spaces
 vim.opt.tabstop = 4                  -- number of spaces in tab
 vim.opt.number = true                -- show line number
