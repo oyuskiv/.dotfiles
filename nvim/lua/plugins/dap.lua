@@ -1,8 +1,11 @@
 return {
   {
     'mfussenegger/nvim-dap',
-    tag = '0.7.0',
+    tag = '0.8.0',
     config = function()
+      -- Set the highlight of debug line
+      vim.api.nvim_set_hl(0, "debugPC", { bg = "#374966" })
+
       local dap = require('dap')
       vim.keymap.set('n', '<Leader>dc', function() dap.continue() end, { desc = 'DAP: continue' })
 
@@ -58,9 +61,10 @@ return {
   },
   {
     'rcarriga/nvim-dap-ui',
-    tag = 'v3.8.4',
+    tag = 'v4.0.0',
     dependencies = {
       'mfussenegger/nvim-dap',
+      "nvim-neotest/nvim-nio",
     },
     config = function()
       require('dapui').setup({
