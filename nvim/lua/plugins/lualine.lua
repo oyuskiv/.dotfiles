@@ -36,7 +36,7 @@ return {
           }
         },
         sections = {
-          lualine_a = { 'mode' },
+          lualine_a = {},
           lualine_b = {
             'branch',
             'diff',
@@ -52,11 +52,18 @@ return {
         },
         inactive_sections = {
           lualine_a = {},
-          lualine_b = {},
-          lualine_c = { { 'filename', path = 1 } },
-          lualine_x = { 'location' },
-          lualine_y = {},
-          lualine_z = {}
+          lualine_b = {
+            'branch',
+            'diff',
+            {
+              'diagnostics',
+              symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
+            },
+          },
+          lualine_c = {},
+          lualine_x = { 'encoding', 'fileformat', 'filetype' },
+          lualine_y = { 'progress' },
+          lualine_z = { 'location' }
         },
         tabline = {},
         winbar = {
@@ -78,7 +85,25 @@ return {
             },
           },
         },
-        inactive_winbar = {},
+        inactive_winbar = {
+          lualine_b = {
+            {
+              'filename',
+              path = 1
+            },
+          },
+          lualine_c = {
+            {
+              function()
+                if navic.is_available() then
+                  return navic.get_location()
+                else
+                  return ''
+                end
+              end
+            },
+          },
+        },
         extensions = { 'quickfix', 'nvim-tree', 'nvim-dap-ui' }
       }
     end
