@@ -24,7 +24,20 @@ return {
         },
         {
           type = 'go',
-          name = 'Debug with arguments',
+          name = 'Debug Test',
+          request = 'launch',
+          mode = 'test',
+          program = './${relativeFileDirname}',
+        },
+        {
+          type = 'go_remote',
+          name = 'Debug Remote',
+          request = 'attach',
+          mode = 'remote',
+        },
+        {
+          type = 'go',
+          name = 'Debug With Arguments',
           request = 'launch',
           program = '${fileDirname}',
           args = function()
@@ -46,19 +59,6 @@ return {
             end
           end,
         },
-        {
-          type = 'go',
-          name = 'Debug test',
-          request = 'launch',
-          mode = 'test',
-          program = './${relativeFileDirname}',
-        },
-        {
-          type = 'go_remote',
-          name = 'Debug remote',
-          request = 'attach',
-          mode = 'remote',
-        }
       }
 
       dap.adapters.go_remote = function(callback, _)

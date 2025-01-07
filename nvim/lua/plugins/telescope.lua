@@ -5,7 +5,7 @@ return {
     'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
   },
   {
-    'oyuskiv/telescope-dap.nvim',
+    'nvim-telescope/telescope-dap.nvim',
   },
   {
     'nvim-telescope/telescope-ui-select.nvim',
@@ -16,7 +16,7 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope-fzf-native.nvim',
-      'oyuskiv/telescope-dap.nvim',
+      'nvim-telescope/telescope-dap.nvim',
     },
     lazy = false,
     config = function()
