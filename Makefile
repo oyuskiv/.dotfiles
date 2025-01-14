@@ -1,5 +1,13 @@
 .PHONY: all
-all: nvim tmux kitty zsh git bat psql lazygit
+all: nvim tmux kitty zsh git bat psql lazygit ghostty
+
+.PHONY: ghostty
+ghostty:
+	@echo "ghostty: removing old config ..."
+	@rm -rf ~/.config/ghostty
+	@echo "ghostty: copying new config ..."
+	@cp -r ghostty ~/.config/ghostty
+	@echo "ghostty: done"
 
 .PHONY: nvim
 nvim:
