@@ -1,4 +1,77 @@
+local diagnostic_state = true
+
+-- Attach function of lsp servers
+local on_attach = function(client, bufnr)
+  local navic = require('nvim-navic')
+  if client.server_capabilities.documentSymbolProvider then
+    navic.attach(client, bufnr)
+  end
+
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration,
+    vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: go to declaration' }))
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition,
+    vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: go to definition' }))
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover,
+    vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: show documentation on hover' }))
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation,
+    vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: go to implementation' }))
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help,
+    vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: show signature help' }))
+  vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder,
+    vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: add directory to workspace' }))
+  vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder,
+    vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: remove directory from workspace' }))
+  vim.keymap.set('n', '<leader>wl',
+    function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end,
+    vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: list workspace directories' }))
+  vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition,
+    vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: go to type definition' }))
+  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename,
+    vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: refactor rename' }))
+  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action,
+    vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: code action' }))
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references,
+    vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: show references' }))
+  vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end,
+    vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: format buffer' }))
+  vim.keymap.set('n', '<leader>td',
+    function()
+      vim.diagnostic.reset()
+      if diagnostic_state then
+        vim.diagnostic.disable()
+        diagnostic_state = false
+      else
+        vim.diagnostic.enable()
+        diagnostic_state = true
+      end
+    end,
+    vim.tbl_deep_extend('error', bufopts, { desc = 'Toogle diagnostic' }))
+end
+
+local lsp_flags = {
+  debounce_text_changes = 150,
+}
+
 return {
+  {
+    'Saecki/crates.nvim',
+    config = function()
+      require("crates").setup {
+        lsp = {
+          enabled = true,
+          on_attach = on_attach,
+          actions = true,
+          completion = true,
+          hover = true,
+        }
+      }
+    end
+  },
   {
     'neovim/nvim-lspconfig',
     lazy = false,
@@ -45,66 +118,9 @@ return {
       vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help,
         { border = "rounded" })
 
-      local diagnostic_state = true
       local navic = require('nvim-navic')
-      -- Attach function of lsp servers
-      local on_attach = function(client, bufnr)
-        if client.server_capabilities.documentSymbolProvider then
-          navic.attach(client, bufnr)
-        end
-
-        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-        local bufopts = { noremap = true, silent = true, buffer = bufnr }
-        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration,
-          vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: go to declaration' }))
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition,
-          vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: go to definition' }))
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover,
-          vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: show documentation on hover' }))
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation,
-          vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: go to implementation' }))
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help,
-          vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: show signature help' }))
-        vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder,
-          vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: add directory to workspace' }))
-        vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder,
-          vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: remove directory from workspace' }))
-        vim.keymap.set('n', '<leader>wl',
-          function()
-            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-          end,
-          vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: list workspace directories' }))
-        vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition,
-          vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: go to type definition' }))
-        vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename,
-          vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: refactor rename' }))
-        vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action,
-          vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: code action' }))
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references,
-          vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: show references' }))
-        vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end,
-          vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: format buffer' }))
-        vim.keymap.set('n', '<leader>td',
-          function()
-            vim.diagnostic.reset()
-            if diagnostic_state then
-              vim.diagnostic.disable()
-              diagnostic_state = false
-            else
-              vim.diagnostic.enable()
-              diagnostic_state = true
-            end
-          end,
-          vim.tbl_deep_extend('error', bufopts, { desc = 'Toogle diagnostic' }))
-      end
-
-      local lsp_flags = {
-        debounce_text_changes = 150,
-      }
-
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local lspconfig = require('lspconfig')
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       -- Enable golang server
       lspconfig.gopls.setup({
