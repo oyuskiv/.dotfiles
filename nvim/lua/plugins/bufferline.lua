@@ -34,10 +34,13 @@ return {
         }
       }
 
+      vim.api.nvim_set_keymap('n', '<leader>bd', ':bd<CR>',
+        { noremap = true, silent = true, desc = 'delete current buffer' })
+
       vim.keymap.set('n', '<leader>as', bufferline.pick, { desc = 'Buffer: pick buffer' })
       vim.keymap.set('n', '<leader>ac', bufferline.close_with_pick, { desc = 'Buffer: close picked beffer' })
-      vim.keymap.set('n', '<leader>an', function() bufferline.cycle(1) end, { desc = 'Buffer: next buffer' })
-      vim.keymap.set('n', '<leader>ap', function() bufferline.cycle(-1) end, { desc = 'Buffer: previous beffer' })
+      vim.keymap.set('n', '<C-n>', function() bufferline.cycle(1) end, { desc = 'Buffer: next buffer' })
+      vim.keymap.set('n', '<C-p>', function() bufferline.cycle(-1) end, { desc = 'Buffer: previous beffer' })
 
       vim.keymap.set('n', '<leader>ad',
         function()

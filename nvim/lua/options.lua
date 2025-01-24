@@ -14,6 +14,7 @@ vim.opt.showmatch = true                                            -- show matc
 vim.opt.autowrite = true                                            -- auto write buffer
 vim.opt.autowriteall = true                                         -- auto write buffer
 vim.opt.scrolloff = 10                                              -- minimal number of lines to keep above and below the cursor
+vim.opt.sidescrolloff = 10                                          -- minimal number of characters to keep before the cursor
 vim.opt.updatetime = 1000                                           -- timeout to write swap file on disk
 vim.opt.mouse = 'a'                                                 -- enable mouse support
 vim.opt.pumheight = 10                                              -- popup menu height
@@ -110,10 +111,26 @@ vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h',
   { noremap = true, silent = true, desc = 'select left window' })
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l',
   { noremap = true, silent = true, desc = 'select right window' })
+vim.api.nvim_set_keymap('n', ']q', ':cnext<CR>',
+  { noremap = true, silent = true, desc = 'select next item in quickfix list' })
+vim.api.nvim_set_keymap('n', '[q', ':cprevious<CR>',
+  { noremap = true, silent = true, desc = 'select previous item in quickfix list' })
 
--- clear highlight
-vim.api.nvim_set_keymap('n', '<leader>l', ':noh<CR>',
-  { noremap = true, silent = true, desc = 'clear highlight' })
+-- scroll
+vim.api.nvim_set_keymap('n', '<C-d>', '<C-d>zz',
+  { noremap = true, silent = true, desc = 'scroll down with centered cursor on the screen' })
+vim.api.nvim_set_keymap('n', '<C-u>', '<C-u>zz',
+  { noremap = true, silent = true, desc = 'scroll up with centered cursor on the screen' })
+vim.api.nvim_set_keymap('i', '<C-d>', '<Esc><C-d>',
+  { noremap = true, silent = true, desc = 'scroll down with centered cursor on the screen' })
+vim.api.nvim_set_keymap('i', '<C-u>', '<Esc><C-u>',
+  { noremap = true, silent = true, desc = 'scroll up with centered cursor on the screen' })
+
+-- window split
+vim.api.nvim_set_keymap('n', '<leader>v', ':vsplit<CR>',
+  { noremap = true, silent = true, desc = 'vertical window split' })
+vim.api.nvim_set_keymap('n', '<leader>s', ':split<CR>',
+  { noremap = true, silent = true, desc = 'horizontal window split' })
 
 -- resize window
 vim.api.nvim_set_keymap('n', '<C-Up>', ':resize -2<CR>',
@@ -124,6 +141,10 @@ vim.api.nvim_set_keymap('n', '<C-Left>', ':vertical resize -2<CR>',
   { noremap = true, silent = true, desc = 'normal mode: window vertical resize -2' })
 vim.api.nvim_set_keymap('n', '<C-Right>', ':vertical resize +2<CR>',
   { noremap = true, silent = true, desc = 'normal mode: window vertical resize +2' })
+
+-- clear highlight
+vim.api.nvim_set_keymap('n', '<leader>l', ':noh<CR>',
+  { noremap = true, silent = true, desc = 'clear highlight' })
 
 -- don't overwrite buffer after paste
 vim.api.nvim_set_keymap('v', 'p', '"_dP', { noremap = true, silent = true })
