@@ -39,5 +39,9 @@
     "key": "ctrl+p",
     "command": "showPrevParameterHint",
     "when": "editorTextFocus && parameterHintsVisible"
+  },
+  {
+    "key": "cmd+o",
+    "command": "workbench.action.quickOpen"
   }
 ]
