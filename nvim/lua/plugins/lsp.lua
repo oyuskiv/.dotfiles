@@ -80,19 +80,32 @@ return {
       'akinsho/flutter-tools.nvim',
     },
     config = function()
-      -- Set diagnostic sing symbols
-      vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError', numhl = '' })
-      vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn', numhl = '' })
-      vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo', numhl = '' })
-      vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint', numhl = '' })
+      vim.diagnostic.config({
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = "",
+            [vim.diagnostic.severity.WARN]  = "",
+            [vim.diagnostic.severity.INFO]  = "",
+            [vim.diagnostic.severity.HINT]  = "",
+          },
+          -- If you want to use highlight groups as well (optional):
+          highlight = true,
+        },
+        -- Optional: configure virtual text, float, underline, etc.
+        virtual_text = true,
+        underline = true,
+        update_in_insert = false,
+        severity_sort = true,
+      })
+
 
       -- Set keymap for diagnostic
       local opts = { noremap = true, silent = true }
       vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float,
         vim.tbl_deep_extend('error', opts, { desc = 'Diagnostic: open diagnostic window' }))
-      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev,
+      vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end,
         vim.tbl_deep_extend('error', opts, { desc = 'Diagnostic: go to previous message' }))
-      vim.keymap.set('n', ']d', vim.diagnostic.goto_next,
+      vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end,
         vim.tbl_deep_extend('error', opts, { desc = 'Diagnostic: go to next message' }))
       vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist,
         vim.tbl_deep_extend('error', opts, { desc = 'Diagnostic: send messages to local list' }))
@@ -118,27 +131,23 @@ return {
       vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help,
         { border = "rounded" })
 
-      local navic = require('nvim-navic')
       local lspconfig = require('lspconfig')
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       -- Enable golang server
       lspconfig.gopls.setup({
         capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          navic.attach(client, bufnr)
-          on_attach(client, bufnr)
-        end,
+        on_attach = on_attach,
         flags = lsp_flags,
         single_file_support = false,
       })
 
       -- Enable golint server
-      lspconfig.golangci_lint_ls.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-        flags = lsp_flags,
-      })
+      -- lspconfig.golangci_lint_ls.setup({
+      --   capabilities = capabilities,
+      --   on_attach = on_attach,
+      --   flags = lsp_flags,
+      -- })
 
       -- Enable lua server
       lspconfig.lua_ls.setup({
@@ -222,7 +231,7 @@ return {
         }
       })
 
-      -- Enable flutter/dart server
+      --Enable flutter/dart server
       require('flutter-tools').setup({
         debugger = {
           enabled = true,

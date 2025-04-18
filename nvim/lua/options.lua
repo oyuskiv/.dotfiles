@@ -23,6 +23,7 @@ vim.opt.termguicolors = true                                        -- enable gu
 vim.opt.laststatus = 3                                              -- enable global status line
 vim.opt.completeopt = { "menu", "menuone", "noselect", "noinsert" } -- comletion options
 vim.cmd('filetype plugin indent on')                                -- enable filetype plugin and indentation
+vim.g.editorconfig = false                                          -- ignore .editorconfig file
 
 -- netrw settings
 vim.g.netrw_hide = 1
