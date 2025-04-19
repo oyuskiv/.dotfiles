@@ -5,8 +5,9 @@ return {
       'mfussenegger/nvim-dap',
     },
     config = function()
-      require('dap-go').setup({})
+      require('dap-go').setup()
       local dap = require('dap')
+
       -- overwrite go configurations
       dap.configurations.go = {
         {
