@@ -1,4 +1,5 @@
 {
+  "chat.commandCenter.enabled": false,
   "editor.cursorBlinking": "solid",
   "editor.cursorSurroundingLines": 10,
   "editor.fontFamily": "'JetBrainsMonoNL Nerd Font Mono'",
@@ -13,7 +14,9 @@
   "editor.scrollbar.horizontal": "hidden",
   "editor.scrollbar.vertical": "hidden",
   "editor.selectionHighlight": false,
+  "editor.stickyScroll.enabled": false,
   "editor.stickyScroll.scrollWithEditor": false,
+  "explorer.confirmDelete": false,
   "extensions.ignoreRecommendations": true,
   "git.openRepositoryInParentFolders": "never",
   "json.schemaDownload.enable": true,
