@@ -1,3 +1,17 @@
+# defaults
+export FZF_DEFAULT_COMMAND="fd -H -I -tf -tl -E .DS_Store -E .localized -E .git -E .Trash  -E Applications -E Music -E Pictures -E Library -E Movies"
+export FZF_DEFAULT_OPTS="--highlight-line --info=inline-right --ansi --layout=reverse --border=none"
+export FZF_CTRL_T_OPTS="--preview='less {}' --height=100% --bind shift-up:preview-page-up,shift-down:preview-page-down"
+
+# theme
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+    --color=fg:#e5e9f0,bg:#3b4252,hl:#81a1c1
+    --color=fg+:#e5e9f0,bg+:#3b4252,hl+:#81a1c1
+    --color=info:#eacb8a,prompt:#bf6069,pointer:#b48dac
+    --color=marker:#BABBF1,fg+:#C6D0F5,prompt:#CA9EE6,hl+:#E78284
+    --color=selected-bg:#51576D
+    --color=border:#737994,label:#C6D0F5'
+
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
 

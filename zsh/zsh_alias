@@ -1,8 +1,8 @@
 ####################################################################################
 # ls
 ####################################################################################
-alias ls='ls --color=auto'
-alias ll='ls -Alp'
+alias ls='gls --color'
+alias ll='gls --color -al --group-directories-first'
 
 ####################################################################################
 # vim
@@ -32,7 +32,7 @@ function fhp() {
 ####################################################################################
 
 # select pane
-tmp() {
+tsp() {
     local panes current_window current_pane target target_window target_pane
     panes=$(tmux list-panes -s -F '#I:#P - #{pane_current_path} #{pane_current_command}')
     current_pane=$(tmux display-message -p '#I:#P')
@@ -80,7 +80,7 @@ fcd() {
     if [ -n "$1" ]; then
         base_dir="$1"
     fi
-    selected_dir=$(fd -I -H -td -E .git --base-directory ${base_dir} | sort -n | fzf --print0 --info=inline --reverse --header="Select directory")
+    selected_dir=$(fd -I -H -td -E .DS_Store -E .localized -E .git -E .Trash  -E Applications -E Music -E Pictures -E Library -E Movies --base-directory ${base_dir} | sort -n | fzf --print0 --info=inline --reverse --header="Select directory")
     if [ $? -eq 0 ]; then
         cd ${base_dir}/${selected_dir}
     fi
@@ -89,12 +89,14 @@ fcd() {
 #edit file
 ffo() {
     if [ -z "$1" ]; then
-        fd -H -I -E .DS_Store -E .localized -E .git -tf -tl | \
+        #use FZF_DEFAULT_COMMAND
+        #fd -H -I -E .DS_Store -E .localized -E .git -tf -tl | \
             fzf --print0 --info=inline --reverse --header="Edit file" --preview "bat --color=always {}" --bind "ctrl-d:preview-down,ctrl-u:preview-up" | \
             xargs -0 -r nvim
     else
         cd $1; \
-            fd -H -I -E .DS_Store -E .localized -E .git -tf -tl | \
+        #use FZF_DEFAULT_COMMAND
+        #fd -H -I -E .DS_Store -E .localized -E .git -tf -tl | \
             fzf --print0 --info=inline --reverse --header="Edit file" --preview "bat --color=always {}" --bind "ctrl-d:preview-down,ctrl-u:preview-up" | \
             xargs -0 -r nvim
     fi
