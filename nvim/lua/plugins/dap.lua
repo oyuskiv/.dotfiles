@@ -103,12 +103,12 @@ return {
               size = 0.30
             },
             {
-              id = 'watches',
-              size = 0.30
+              id = 'stacks',
+              size = 0.40
             },
             {
-              id = 'stacks',
-              size = 0.30
+              id = 'watches',
+              size = 0.20
             },
             {
               id = 'console',

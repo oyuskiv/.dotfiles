@@ -73,6 +73,16 @@ return {
         local port = string.sub(address, separator + 1)
         callback({ type = 'server', host = host, port = port, })
       end
+
+      -- set keymap to debug nearest test
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "go",
+        callback = function()
+          vim.keymap.set("n", "<leader>td", function()
+            require("dap-go").debug_test()
+          end, { buffer = true, desc = "Debug Go test" })
+        end,
+      })
     end
   },
 }

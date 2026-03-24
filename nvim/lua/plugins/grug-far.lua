@@ -19,4 +19,11 @@ return {
       desc = "Search and Replace",
     },
   },
+  -- config = function()
+  --   local grug = require('grug-far')
+  --   grug.setup({
+  --     -- options, see Configuration section below
+  --     -- there are no required options atm
+  --   });
+  -- end
 }
