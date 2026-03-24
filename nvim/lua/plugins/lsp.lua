@@ -1,5 +1,3 @@
-local diagnostic_state = true
-
 -- Attach function of lsp servers
 local on_attach = function(client, bufnr)
   local navic = require('nvim-navic')
@@ -39,18 +37,6 @@ local on_attach = function(client, bufnr)
     vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: show references' }))
   vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end,
     vim.tbl_deep_extend('error', bufopts, { desc = 'LSP: format buffer' }))
-  vim.keymap.set('n', '<leader>td',
-    function()
-      vim.diagnostic.reset()
-      if diagnostic_state then
-        vim.diagnostic.disable()
-        diagnostic_state = false
-      else
-        vim.diagnostic.enable()
-        diagnostic_state = true
-      end
-    end,
-    vim.tbl_deep_extend('error', bufopts, { desc = 'Toogle diagnostic' }))
 end
 
 local lsp_flags = {
@@ -61,7 +47,7 @@ return {
   {
     'Saecki/crates.nvim',
     config = function()
-      require("crates").setup {
+      require('crates').setup {
         lsp = {
           enabled = true,
           on_attach = on_attach,
@@ -83,10 +69,10 @@ return {
       vim.diagnostic.config({
         signs = {
           text = {
-            [vim.diagnostic.severity.ERROR] = "",
-            [vim.diagnostic.severity.WARN]  = "",
-            [vim.diagnostic.severity.INFO]  = "",
-            [vim.diagnostic.severity.HINT]  = "",
+            [vim.diagnostic.severity.ERROR] = '',
+            [vim.diagnostic.severity.WARN]  = '',
+            [vim.diagnostic.severity.INFO]  = '',
+            [vim.diagnostic.severity.HINT]  = '',
           },
           -- If you want to use highlight groups as well (optional):
           highlight = true,
@@ -127,30 +113,28 @@ return {
       })
 
       -- Set border for floating preview window
-      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help,
+      vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
+      vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help,
         { border = "rounded" })
 
-      local lspconfig = require('lspconfig')
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       -- Enable golang server
-      lspconfig.gopls.setup({
+      vim.lsp.config('gopls', {
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
         single_file_support = false,
+        settings = {
+          gopls = {
+            buildFlags = { '-tags=smoketest' }
+          }
+        }
       })
-
-      -- Enable golint server
-      -- lspconfig.golangci_lint_ls.setup({
-      --   capabilities = capabilities,
-      --   on_attach = on_attach,
-      --   flags = lsp_flags,
-      -- })
+      vim.lsp.enable('gopls')
 
       -- Enable lua server
-      lspconfig.lua_ls.setup({
+      vim.lsp.config('lua_ls', {
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
@@ -178,45 +162,51 @@ return {
           },
         },
       })
+      vim.lsp.enable('lua_ls')
 
       -- Enable bash server
-      lspconfig.bashls.setup({
+      vim.lsp.config('bashls', {
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
       })
+      vim.lsp.enable('bashls')
 
       -- Enable python server
-      lspconfig.pyright.setup({
+      vim.lsp.config('pyright', {
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
       })
+      vim.lsp.enable('pyright')
 
       -- Enable terraform server
-      lspconfig.terraformls.setup({
+      vim.lsp.config('terraformls', {
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
       })
+      vim.lsp.enable('terraformls')
 
       -- Enable groovy server
-      lspconfig.groovyls.setup({
+      vim.lsp.config('groovyls', {
         cmd = { 'groovy-language-server' }, -- symlink on "java -jar groovy-language-server-all.jar"
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
       })
+      vim.lsp.enable('groovyls')
 
       -- Enable docker server
-      lspconfig.dockerls.setup({
+      vim.lsp.config('dockerls', {
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
       })
+      vim.lsp.enable('dockerls')
 
       -- Enable yaml server
-      lspconfig.yamlls.setup({
+      vim.lsp.config('yamlls', {
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
@@ -230,6 +220,7 @@ return {
           }
         }
       })
+      vim.lsp.enable('yamlls')
 
       --Enable flutter/dart server
       require('flutter-tools').setup({
@@ -248,26 +239,38 @@ return {
       })
 
       -- Enable c++ server
-      lspconfig.clangd.setup({
+      vim.lsp.config('clangd', {
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
         filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' } -- 'proto' is excluded
       })
+      vim.lsp.enable('clangd')
 
       -- Enable cmake server
-      lspconfig.cmake.setup({
+      vim.lsp.config('cmake', {
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
       })
+      vim.lsp.enable('cmake')
 
       -- Enable rust server
-      lspconfig.rust_analyzer.setup({
+      vim.lsp.config('rust_analyzer', {
         capabilities = capabilities,
         on_attach = on_attach,
         flags = lsp_flags,
       })
+      vim.lsp.enable('rust_analyzer')
+
+
+      -- Enable spell checking
+      -- vim.lsp.config('cspell_ls', {
+      --   capabilities = capabilities,
+      --   on_attach = on_attach,
+      --   flags = lsp_flags,
+      -- })
+      -- vim.lsp.enable('cspell_ls')
     end
   },
 }

@@ -54,7 +54,7 @@ return {
       local builtin = require('telescope.builtin')
       vim.keymap.set('n', '<leader>ff', function() builtin.find_files({ follow = true }) end,
         { desc = 'Telescope: find files' })
-      vim.keymap.set('n', '<leader>fF',
+      vim.keymap.set('n', '<leader>F',
         function()
           builtin.find_files({ follow = true, no_ignore = true, hidden = true })
         end,
