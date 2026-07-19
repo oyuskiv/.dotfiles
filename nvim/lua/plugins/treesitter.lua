@@ -1,68 +1,65 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
     lazy = false,
     build = ':TSUpdate',
     config = function()
-      local treesitter = require('nvim-treesitter.configs')
-      treesitter.setup({
-        highlight = {
-          enable = true,
-          disable = function(_, buf)
-            local max_filesize = 5 * 1244 * 1024 -- 5 MB
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
-              return true
-            end
-          end,
-        },
-        indent = {
-          enable = true,
-          disable = { 'dart' }, -- https://github.com/nvim-treesitter/nvim-treesitter/issues/4945
-        },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = 'gnn',
-            node_incremental = 'grn',
-            scope_incremental = 'grc',
-            node_decremental = 'grm',
-          },
-        },
-        textobjects = {
-          enable = true
-        },
-        sync_install = true,
-        ensure_installed = {
-          'bash',
-          'toml',
-          'json',
-          'yaml',
-          'python',
-          'lua',
-          'c',
-          'cpp',
-          'cmake',
-          'make',
-          'dockerfile',
-          'go',
-          'gomod',
-          'vim',
-          'rust',
-          'bash',
-          'markdown',
-          'java',
-          'javascript',
-          'dart',
-          'hcl',
-          'http',
-        },
+      require('nvim-treesitter').install({
+        'bash',
+        'toml',
+        'json',
+        'yaml',
+        'python',
+        'lua',
+        'c',
+        'cpp',
+        'cmake',
+        'make',
+        'dockerfile',
+        'go',
+        'gomod',
+        'vim',
+        'rust',
+        'markdown',
+        'java',
+        'javascript',
+        'dart',
+        'hcl',
+        'http',
       })
 
-      -- Setup folding
-      vim.opt.foldmethod = 'expr'
-      vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-      vim.opt.foldlevel = 99
-    end
-  }
+      -- Fold defaults (foldexpr/foldmethod are set per-buffer in the autocmd below,
+      -- only when a parser is actually active). Open files unfolded.
+      vim.o.foldlevel = 99
+      vim.o.foldlevelstart = 99
+
+      -- Enable highlight + indent + folding whenever a buffer's filetype has a parser.
+      vim.api.nvim_create_autocmd('FileType', {
+        group = vim.api.nvim_create_augroup('user_treesitter', { clear = true }),
+        callback = function(args)
+          local buf = args.buf
+
+          -- Big-file guard (was `highlight.disable`). Note: original used 1244 by
+          -- typo; this is a true 5 MB limit.
+          local max_filesize = 5 * 1024 * 1024 -- 5 MB
+          local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+          if ok and stats and stats.size > max_filesize then
+            return
+          end
+
+          -- Highlight. pcall makes this a no-op for filetypes without a parser.
+          if not pcall(vim.treesitter.start) then
+            return
+          end
+
+          -- Folding (native) + indentation (plugin, experimental) — only when a
+          -- parser is active for this buffer.
+          vim.wo[0][0].foldmethod = 'expr'
+          vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+          vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
+      })
+    end,
+  },
 }

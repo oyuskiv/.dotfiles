@@ -153,7 +153,7 @@ return {
 
       -- Automatically open/close dap ui
       local dap = require('dap')
-      dap.listeners.before.attach.dapui_config = function()
+      dap.listeners.after.event_initialized.dapui_config = function()
         dapui.open()
       end
       dap.listeners.before.launch.dapui_config = function()
