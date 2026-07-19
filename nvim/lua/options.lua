@@ -40,23 +40,34 @@ local max_filesize = 500 * 1024 -- 500 KB
 -- auto format file during save
 local group_autoformat = vim.api.nvim_create_augroup('auto format', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePre', {
-  callback = function()
-    local bufnr = vim.api.nvim_win_get_buf(0)
+  callback = function(args)
+    local bufnr = args.buf
 
     -- skip large files
-    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+    local file_path = vim.api.nvim_buf_get_name(bufnr)
+    local ok, stats = pcall(vim.uv.fs_stat, file_path)
     if ok and stats and stats.size > max_filesize then
       return
     end
 
-    local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
-    for _, c in ipairs(clients) do
-      if c.server_capabilities.documentFormattingProvider then
-        vim.lsp.buf.format { async = false }
-        return
+    -- check for LSP formatters
+    local clients = vim.lsp.get_clients({ bufnr = bufnr })
+    local formatted = false
+    local ft = vim.bo[args.buf].filetype
+    for _, client in ipairs(clients) do
+      -- dartls doesn't report support of documentFormattingProvider but is able to format .dart files
+      if client.server_capabilities.documentFormattingProvider or (client.name == "dartls" and ft == 'dart') then
+        -- force synchronous formatting so it finishes before the write
+        vim.lsp.buf.format({ bufnr = bufnr, async = false })
+        formatted = true
+        break
       end
     end
-    vim.api.nvim_command('%s/\\s\\+$//e')
+
+    --  fallback: Trailing whitespace removal if no LSP formatted the file
+    if not formatted then
+      vim.api.nvim_command('%s/\\s\\+$//e')
+    end
   end,
   pattern = '*',
   group = group_autoformat

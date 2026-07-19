@@ -4,7 +4,7 @@ return {
   { 'hrsh7th/cmp-buffer' },
   { 'hrsh7th/cmp-path' },
   { 'hrsh7th/cmp-nvim-lsp-signature-help' },
-  { 'Snikimonkd/cmp-go-pkgs' },
+  { 'oyuskiv/cmp-go-pkgs' },
   {
     'L3MON4D3/LuaSnip',
     version = "v2.*"
@@ -31,7 +31,7 @@ return {
       'hrsh7th/cmp-nvim-lsp-signature-help',
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
-      'Snikimonkd/cmp-go-pkgs',
+      'oyuskiv/cmp-go-pkgs',
       'Saecki/crates.nvim', -- configured in lsp
     },
     config = function()

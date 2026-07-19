@@ -12,11 +12,12 @@ return {
   },
   {
     'nvim-telescope/telescope.nvim',
-    tag = '0.1.8',
+    tag = 'v0.2.2',
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope-fzf-native.nvim',
       'nvim-telescope/telescope-dap.nvim',
+      'akinsho/flutter-tools.nvim',
     },
     lazy = false,
     config = function()
