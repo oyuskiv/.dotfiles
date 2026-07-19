@@ -1,0 +1,16 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "languageSettings": [
+    {
+      "languageId": "go",
+      "ignoreRegExpList": [
+        "/import\\s*\\(([^)]*)\\)/g",
+        "/import\\s+(?:[\\w.]+\\s+)?\"[^\"]+\"/g",
+        "/\\b\\w+pb\\b/g"
+      ],
+      "allowCompoundWords": true
+    }
+  ],
+  "words": []
+}
