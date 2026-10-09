@@ -24,6 +24,7 @@
         enabled = true
 [init]
         defaultBranch = main
+        defaultRefFormat = reftable
 # delta configuration
 [include]
     path = delta-themes.cfg
