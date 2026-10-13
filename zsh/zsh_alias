@@ -54,8 +54,10 @@ tsp() {
 # create new tmux session or switch to existing one
 tm() {
     [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
-    if [ $1 ]; then
-      tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -c ~ -s $1 && tmux $change -t "$1"); return
+    if [[ -n "$1" ]]; then
+      # "=" prefix forces exact session name match (tmux matches by prefix otherwise)
+      tmux has-session -t "=$1" 2>/dev/null || tmux new-session -d -c ~ -s "$1"
+      tmux $change -t "=$1"; return
     fi
     session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --height=50% --info=inline --header="Select tmux session" --reverse --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
 }
@@ -64,11 +66,10 @@ tm() {
 tmk() {
     local sessions
     sessions=$(tmux ls | fzf --height=50% --info=inline --reverse --header="Kill tmux session" --exit-0 --multi) || return $?
-    local i
-    for i in "$sessions"
-    do
-        echo $i | cut -d ':' -f1 | xargs tmux kill-session -t
-    done
+    local line
+    while IFS= read -r line; do
+        [[ -n "$line" ]] && tmux kill-session -t "${line%%:*}"
+    done <<< "$sessions"
 }
 
 ####################################################################################
