@@ -15,7 +15,8 @@ function zsh_add_plugin() {
 
 function zsh_add_dir() {
     if [ -d "$1" ]; then
-        for FILE in "$1"/*; do
+        # only *.env files are loaded; rename a file (e.g. to *.env.disabled) to skip it
+        for FILE in "$1"/*.env(N); do
             source ${FILE}
         done
     fi
